@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* base tweaks */
+:root { color-scheme: light dark; }
+html, body, #root { height: 100%; }
+html { scroll-behavior: smooth; }
+
+
+/* default theme */
+body { @apply bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100 antialiased font-sans; }
+
+/* links */
+a { @apply text-primary-600 hover:text-primary-700 underline-offset-4 hover:underline; }
