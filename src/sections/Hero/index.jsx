@@ -52,7 +52,7 @@ export default function Hero() {
           </ul>
         </div>
 
- {/* Right: avatar with glow (zoom controllable) */}
+ {/* Right: avatar (no padding, square, slight zoom) */}
 <div className="justify-self-center">
   <div className="relative">
     {/* soft halo */}
@@ -62,26 +62,26 @@ export default function Hero() {
                  blur-2xl scale-125"
       aria-hidden="true"
     />
+    {/* square container; no padding at all */}
     <div
-      className="relative size-40 md:size-48 rounded-full overflow-hidden
+      className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden
                  ring-4 ring-white bg-sky-100
                  shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]"
     >
       <img
-  src={avatar}
-  alt="Mohd Faheem"
-  className="block h-full w-full object-cover select-none pointer-events-none"
-  style={{
-    transform: 'scale(1.06)',      // <-- zoom amount (1.04–1.10 try kar sakte ho)
-    transformOrigin: 'center',      // zoom center se ho
-    objectPosition: '50% 48%'       // thoda upar shift (48%); 50% normal, 47% more up
-  }}
-/>
-
-
+        src={avatar}
+        alt="Mohd Faheem"
+        className="block w-full h-full object-cover select-none pointer-events-none"
+        style={{
+          transform: 'scale(1.08)',      // << zoom amount (1.06–1.12 try kar sakte ho)
+          transformOrigin: 'center',
+          objectPosition: '50% 48%'      // << thoda upar; 47% aur upar, 49% thoda neeche
+        }}
+      />
     </div>
   </div>
 </div>
+
       </div>
 
     </section>
