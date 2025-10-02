@@ -52,18 +52,14 @@ export default function Hero() {
           </ul>
         </div>
 
-      {/* Right: avatar with glow (zoomed a bit) */}
-     {/* Right: avatar with glow (zoomed to kill top/bottom gaps) */}
-<div className="justify-self-center">
+ <div className="justify-self-center">
   <div className="relative">
-    {/* soft halo */}
     <div
       className="absolute inset-0 -z-10 rounded-full
                  bg-gradient-to-br from-blue-500/25 via-cyan-400/15 to-transparent
                  blur-2xl scale-125"
       aria-hidden="true"
     />
-
     <div
       className="relative size-40 md:size-48 rounded-full overflow-hidden
                  ring-4 ring-white bg-sky-100
@@ -72,18 +68,13 @@ export default function Hero() {
       <img
         src={avatar}
         alt="Mohd Faheem"
-        className="
-          h-full w-full aspect-square
-          object-cover object-center
-          /* yeh do lines ‘zoom’ control karti hain */
-          transform scale-[1.10] md:scale-[1.12]
-          /* zarurat ho to center thoda adjust: +down = positive, up = negative */
-          md:translate-y-[0px]
-        "
+        className="h-full w-full aspect-square object-cover object-center
+                   transform scale-[1.18] md:scale-[1.22]"  /* yahin se zoom control */
       />
     </div>
   </div>
 </div>
+
 
 
       </div>
