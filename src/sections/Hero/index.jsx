@@ -70,9 +70,14 @@ export default function Hero() {
       <img
   src={avatar}
   alt="Mohd Faheem"
-  className="h-full w-full object-cover object-center select-none pointer-events-none"
-  style={{ transform: 'scale(1.16)' }}   // <— tweak this number to zoom
+  className="block h-full w-full object-cover select-none pointer-events-none"
+  style={{
+    transform: 'scale(1.06)',      // <-- zoom amount (1.04–1.10 try kar sakte ho)
+    transformOrigin: 'center',      // zoom center se ho
+    objectPosition: '50% 48%'       // thoda upar shift (48%); 50% normal, 47% more up
+  }}
 />
+
 
     </div>
   </div>
