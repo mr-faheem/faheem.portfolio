@@ -1,6 +1,5 @@
 import React from "react";
-// Hero/index.jsx  ->  src/sections/Hero/index.jsx
-// Image is at     ->  src/assets/images/profile.jpg
+// NOTE: path is relative to this file
 import avatar from "../../assets/images/profile.jpg";
 
 export default function Hero() {
@@ -14,15 +13,19 @@ export default function Hero() {
             Hi, I’m <span className="text-slate-900">Mohd Faheem</span>
           </h1>
           <p className="mt-4 max-w-2xl text-slate-600">
-            I build modern web apps with <strong>React</strong>, <strong>Node.js</strong> and <strong>MongoDB</strong>.
+            I build modern web apps with <strong>React</strong>,{" "}
+            <strong>Node.js</strong> and <strong>MongoDB</strong>.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href="#contact" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition">
+            <a
+              href="#contact"
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
+            >
               Hire Me
             </a>
 
-            {/* CV kept in /public so relative URL works on GH Pages */}
+            {/* CV is in /public so relative url works on GH Pages */}
             <a
               href="Faheem_Resume_2025.pdf"
               target="_blank"
@@ -52,6 +55,7 @@ export default function Hero() {
         {/* Right: avatar with glow */}
         <div className="justify-self-center">
           <div className="relative">
+            {/* soft glow/halo */}
             <div
               className="absolute inset-0 -z-10 rounded-full
                          bg-gradient-to-br from-blue-500/25 via-cyan-400/15 to-transparent
@@ -63,10 +67,12 @@ export default function Hero() {
                          ring-4 ring-white bg-sky-100
                          shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]"
             >
+              {/* KEY: contain + slight scale-down so hair/shoulders dikhein */}
               <img
                 src={avatar}
                 alt="Mohd Faheem"
-                className="h-full w-full object-cover object-center select-none pointer-events-none"
+                className="h-full w-full object-contain object-center select-none pointer-events-none
+                           scale-90 md:scale-95"
               />
             </div>
           </div>
