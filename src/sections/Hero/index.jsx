@@ -52,8 +52,10 @@ export default function Hero() {
           </ul>
         </div>
 
- <div className="justify-self-center">
+ {/* Right: avatar with glow (zoom controllable) */}
+<div className="justify-self-center">
   <div className="relative">
+    {/* soft halo */}
     <div
       className="absolute inset-0 -z-10 rounded-full
                  bg-gradient-to-br from-blue-500/25 via-cyan-400/15 to-transparent
@@ -68,15 +70,15 @@ export default function Hero() {
       <img
         src={avatar}
         alt="Mohd Faheem"
-        className="h-full w-full aspect-square object-cover object-center
-                   transform scale-[1.18] md:scale-[1.22]"  /* yahin se zoom control */
+        /* ⬇️ yahin se zoom & nudge control hoga */
+        className="h-full w-full object-cover object-center
+                   transform-gpu scale-110 md:scale-115 -translate-y-0.5"
+        /* transformOrigin thoda lower center pe — hair/shoulder nicely fit */
+        style={{ transformOrigin: '50% 45%' }}
       />
     </div>
   </div>
 </div>
-
-
-
       </div>
 
     </section>
