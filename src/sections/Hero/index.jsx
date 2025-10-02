@@ -76,7 +76,7 @@ export default function Hero() {
           h-full w-full aspect-square
           object-cover object-center
           /* yeh do lines ‘zoom’ control karti hain */
-          transform scale-[1.12] md:scale-[1.14]
+          transform scale-[1.10] md:scale-[1.12]
           /* zarurat ho to center thoda adjust: +down = positive, up = negative */
           md:translate-y-[0px]
         "
