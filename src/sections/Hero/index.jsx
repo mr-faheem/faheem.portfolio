@@ -68,14 +68,12 @@ export default function Hero() {
                  shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]"
     >
       <img
-        src={avatar}
-        alt="Mohd Faheem"
-        /* ⬇️ yahin se zoom & nudge control hoga */
-        className="h-full w-full object-cover object-center
-                   transform-gpu scale-110 md:scale-115 -translate-y-0.5"
-        /* transformOrigin thoda lower center pe — hair/shoulder nicely fit */
-        style={{ transformOrigin: '50% 45%' }}
-      />
+  src={avatar}
+  alt="Mohd Faheem"
+  className="h-full w-full object-cover object-center select-none pointer-events-none"
+  style={{ transform: 'scale(1.16)' }}   // <— tweak this number to zoom
+/>
+
     </div>
   </div>
 </div>
