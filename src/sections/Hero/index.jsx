@@ -52,31 +52,32 @@ export default function Hero() {
           </ul>
         </div>
 
-        {/* Right: avatar with glow (fixed fit) */}
-<div className="justify-self-center">
-  <div className="relative">
-    {/* soft halo */}
-    <div
-      className="absolute inset-0 -z-10 rounded-full
-                 bg-gradient-to-br from-blue-500/25 via-cyan-400/15 to-transparent
-                 blur-2xl scale-125"
-      aria-hidden="true"
-    />
-    <div
-      className="relative size-40 md:size-48 rounded-full overflow-hidden
-                 ring-4 ring-white bg-sky-100
-                 shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]
-                 p-2 md:p-3"     // <-- padding adds headroom so hair/shoulders show
-    >
-      <img
-        src={avatar}
-        alt="Mohd Faheem"
-        className="h-full w-full object-contain object-center select-none pointer-events-none"
-      />
-    </div>
-  </div>
-</div>
-</div>
+      {/* Right: avatar with glow (zoomed a bit) */}
+      <div className="justify-self-center">
+        <div className="relative">
+          {/* soft halo */}
+          <div
+            className="absolute inset-0 -z-10 rounded-full
+                      bg-gradient-to-br from-blue-500/25 via-cyan-400/15 to-transparent
+                      blur-2xl scale-125"
+            aria-hidden="true"
+          />
+          <div
+            className="relative size-40 md:size-48 rounded-full overflow-hidden
+                      ring-4 ring-white bg-sky-100
+                      shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]"
+          >
+            <img
+              src={avatar}
+              alt="Mohd Faheem"
+              className="h-full w-full object-cover object-center
+                        transform scale-[1.10] md:scale-[1.12]"
+            />
+          </div>
+        </div>
+      </div>
+
+      </div>
 
     </section>
   );
