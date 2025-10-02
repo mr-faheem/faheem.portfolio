@@ -71,7 +71,7 @@ export default function Hero() {
               src={avatar}
               alt="Mohd Faheem"
               className="h-full w-full object-cover object-center
-                        transform scale-[1.10] md:scale-[1.12]"
+                        transform scale-[1.12] md:scale-[1.14]"
             />
           </div>
         </div>
