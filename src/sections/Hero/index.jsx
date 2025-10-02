@@ -1,4 +1,7 @@
 import React from "react";
+// Hero/index.jsx  ->  src/sections/Hero/index.jsx
+// Image is at     ->  src/assets/images/profile.jpg
+import avatar from "../../assets/images/profile.jpg";
 
 export default function Hero() {
   return (
@@ -15,18 +18,28 @@ export default function Hero() {
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href="#contact" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition">Hire Me</a>
-               <a
-                href="/Faheem_Resume_2025.pdf"
-                target="_blank"
-                rel="noreferrer"
-                className="px-4 py-2 rounded border hover:bg-slate-50 transition"
-                >
-                Download CV
-                </a>
+            <a href="#contact" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition">
+              Hire Me
+            </a>
 
+            {/* CV kept in /public so relative URL works on GH Pages */}
+            <a
+              href="Faheem_Resume_2025.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 rounded border hover:bg-slate-50 transition"
+            >
+              Download CV
+            </a>
 
-            <a href="https://wa.me/918979391273" target="_blank" rel="noreferrer" className="px-4 py-2 rounded border hover:bg-slate-50 transition">WhatsApp</a>
+            <a
+              href="https://wa.me/918979391273"
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 rounded border hover:bg-slate-50 transition"
+            >
+              WhatsApp
+            </a>
           </div>
 
           <ul className="mt-6 flex flex-wrap gap-2 text-sm text-slate-600">
@@ -36,31 +49,28 @@ export default function Hero() {
           </ul>
         </div>
 
-        {/* Right: avatar (no crop – image fits inside circle) */}
-        {/* Right: avatar with premium outer glow */}
-<div className="justify-self-center">
-  {/* glow/halo behind the circle */}
-  <div className="relative">
-    <div
-      className="absolute inset-0 -z-10 rounded-full
-                 bg-gradient-to-br from-blue-500/25 via-cyan-400/15 to-transparent
-                 blur-2xl scale-125"
-      aria-hidden="true"
-    />
-    <div
-      className="relative size-40 md:size-48 rounded-full overflow-hidden
-                 ring-4 ring-white bg-sky-100
-                 shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]"
-    >
-      <img
-        src="/src/assets/images/profile.jpg"
-        alt="Mohd Faheem"
-        className="h-full w-full object-contain object-center select-none pointer-events-none"
-      />
-    </div>
-  </div>
-</div>
-
+        {/* Right: avatar with glow */}
+        <div className="justify-self-center">
+          <div className="relative">
+            <div
+              className="absolute inset-0 -z-10 rounded-full
+                         bg-gradient-to-br from-blue-500/25 via-cyan-400/15 to-transparent
+                         blur-2xl scale-125"
+              aria-hidden="true"
+            />
+            <div
+              className="relative size-40 md:size-48 rounded-full overflow-hidden
+                         ring-4 ring-white bg-sky-100
+                         shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]"
+            >
+              <img
+                src={avatar}
+                alt="Mohd Faheem"
+                className="h-full w-full object-cover object-center select-none pointer-events-none"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
