@@ -52,7 +52,7 @@ export default function Hero() {
           </ul>
         </div>
 
- {/* Right: avatar (no padding, square, slight zoom) */}
+ {/* Right: avatar with glow (stable zoom) */}
 <div className="justify-self-center">
   <div className="relative">
     {/* soft halo */}
@@ -62,25 +62,26 @@ export default function Hero() {
                  blur-2xl scale-125"
       aria-hidden="true"
     />
-    {/* square container; no padding at all */}
+    {/* CIRCLE SIZE — yahin se circle chhota/bada hoga */}
     <div
-      className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden
-                 ring-4 ring-white bg-sky-100
-                 shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]"
+      className="relative rounded-full overflow-hidden ring-4 ring-white
+                 bg-sky-100 shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]
+                 w-[192px] h-[192px] md:w-[208px] md:h-[208px]"
     >
       <img
         src={avatar}
         alt="Mohd Faheem"
-        className="block w-full h-full object-cover select-none pointer-events-none"
+        className="w-full h-full object-cover select-none pointer-events-none"
+        // ↓↓↓ yahin se 'zoom' aur vertical fit control hoga (Tailwind purge-proof)
         style={{
-          transform: 'scale(1.08)',      // << zoom amount (1.06–1.12 try kar sakte ho)
-          transformOrigin: 'center',
-          objectPosition: '50% 48%'      // << thoda upar; 47% aur upar, 49% thoda neeche
+          transform: 'scale(1.12)',   // 1.10–1.20: zoom badhane/ghataane ko yahan change karo
+          objectPosition: 'center 44%' // '44%' se thoda upar niche set hota hai; 40–48% try kar sakte ho
         }}
       />
     </div>
   </div>
 </div>
+
 
       </div>
 
