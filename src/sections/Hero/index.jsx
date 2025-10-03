@@ -1,5 +1,6 @@
 // src/sections/Hero/index.jsx
 import React from "react";
+import avatar from "../../assets/images/profile.jpg"; // <- correct relative path
 
 export default function Hero() {
   return (
@@ -51,7 +52,7 @@ export default function Hero() {
           </ul>
         </div>
 
-        {/* Right: empty circle with glow (no image) */}
+        {/* Right: circle + photo (same fit as localhost) */}
         <div className="justify-self-center">
           <div className="relative">
             {/* soft halo */}
@@ -61,15 +62,22 @@ export default function Hero() {
                          blur-2xl scale-125"
               aria-hidden="true"
             />
-            {/* Circle */}
+            {/* circle size */}
             <div
               className="relative rounded-full overflow-hidden ring-4 ring-white
                          bg-sky-100 shadow-[0_18px_55px_rgba(2,132,199,.28),0_8px_24px_rgba(0,0,0,.12)]
-                         w-[192px] h-[192px] md:w-[208px] md:h-[208px]
-                         flex items-center justify-center"
+                         w-[192px] h-[192px] md:w-[208px] md:h-[208px]"
             >
-              {/* Optional initials (remove if you want pure empty circle) */}
-              {/* <span className="text-3xl md:text-4xl font-semibold text-slate-700 select-none">MF</span> */}
+              <img
+                src={avatar}
+                alt="Mohd Faheem"
+                className="w-full h-full object-cover select-none pointer-events-none"
+                /* ↓ tweak here if you ever want微 zoom/offset */
+                style={{
+                  transform: "scale(1.08)",   // 1.06–1.10 keeps top/bottom snug, left/right thoda gap
+                  objectPosition: "center 44%" // 42–46% se forehead/chin balance set hota hai
+                }}
+              />
             </div>
           </div>
         </div>
