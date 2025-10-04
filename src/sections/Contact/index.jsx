@@ -17,7 +17,7 @@ export default function Contact() {
 
     try {
       const fd = new FormData(formRef.current);
-      // Optional subject to keep mails tidy
+      // keep inbox tidy
       fd.append("_subject", `New message from ${fd.get("name")} — Portfolio`);
 
       const res = await fetch(FORM_ENDPOINT, {
@@ -46,63 +46,64 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-16 border-t">
+    <section id="contact" className="py-16 md:py-20 border-t">
       <div className="container">
         <SectionHeading eyebrow="CONTACT" title="Let’s work together" />
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Left: form (unchanged layout) */}
+
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          {/* Left: form (same two-box layout, premium styles) */}
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="rounded border p-4 space-y-3"
+            className="card p-4 md:p-5 space-y-3"
             aria-busy={isSubmitting}
           >
+            {/* Honeypot (spam protection) */}
+            <input type="text" name="_gotcha" className="hidden" tabIndex="-1" autoComplete="off" />
+
             <input
-              className="w-full border rounded px-3 py-2"
+              className="input"
               name="name"
               placeholder="Name"
               required
             />
             <input
-              className="w-full border rounded px-3 py-2"
+              className="input"
               type="email"
               name="email"
               placeholder="Email"
               required
             />
             <textarea
-              className="w-full border rounded px-3 py-2"
+              className="textarea"
               rows="6"
               name="message"
               placeholder="Message"
               required
-            ></textarea>
+            />
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`px-5 py-2 rounded bg-primary-600 text-white transition
-                disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2`}
+              className="btn btn-primary btn-block sm:w-auto"
             >
               {isSubmitting && (
                 <svg
-                  className="h-4 w-4 animate-spin"
+                  className="h-4 w-4 animate-spin -ms-1 me-2"
                   viewBox="0 0 24 24"
                   fill="none"
+                  aria-hidden="true"
                 >
                   <circle
                     className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
+                    cx="12" cy="12" r="10"
+                    stroke="currentColor" strokeWidth="4"
+                  />
                   <path
                     className="opacity-75"
                     fill="currentColor"
                     d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                  ></path>
+                  />
                 </svg>
               )}
               {isSubmitting ? "Sending…" : "Send"}
@@ -121,8 +122,8 @@ export default function Contact() {
             )}
           </form>
 
-          {/* Right: contact details (as-is) */}
-          <div className="rounded border p-4">
+          {/* Right: contact details (same second box, just premium card) */}
+          <div className="card p-4 md:p-5">
             <p>
               Email:{" "}
               <a href="mailto:gourfaheem55@gmail.com">
