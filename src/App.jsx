@@ -15,7 +15,7 @@ import useActiveSection from "./hooks/useActiveSection.js";
 export default function App() {
   // NOTE: IDs MUST match your <section id="..."> attributes
   const ids = ["hero", "about", "skills", "projects", "experience", "contact"];
-  // rootMargin param is optional with the new hook; keeping a sensible default
+  // a bit top-safe (header height) + center bias
   const active = useActiveSection(ids, "-64px 0px -40% 0px");
 
   const linkClass = (id) =>
@@ -28,11 +28,14 @@ export default function App() {
   return (
     <main className="min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
-        <nav className="container flex items-center justify-between py-3">
-          <a href="#hero" className="font-semibold select-none">Faheem</a>
+      <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <nav className="container px-4 sm:px-6 md:px-8 flex items-center justify-between h-14 md:h-16">
+          <a href="#hero" className="font-semibold select-none">
+            Faheem
+          </a>
 
-          <div className="hidden sm:flex gap-5 text-sm">
+          {/* Desktop links */}
+          <div className="hidden sm:flex items-center gap-6 text-sm">
             <a
               href="#about"
               className={linkClass("about")}
@@ -70,7 +73,10 @@ export default function App() {
             </a>
           </div>
 
-          <a href="#contact" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition">
+          <a
+            href="#contact"
+            className="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition font-medium"
+          >
             Hire Me
           </a>
         </nav>
