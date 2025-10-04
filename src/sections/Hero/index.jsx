@@ -80,7 +80,7 @@ export default function Hero() {
           display: 'block',   // inline-gap issues से बचने के लिए
           margin: '0 auto',   // horizontally center
           objectPosition: 'center',
-          transform: 'scale(0.99)', // 0.94–0.98 try for fine-tune
+          transform: 'scale(1.00)', // 0.94–0.98 try for fine-tune
         }}
       />
     </div>
