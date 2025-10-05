@@ -11,43 +11,44 @@ export default function Hero() {
         <div>
           <p className="text-sm text-primary-600">Full Stack Developer</p>
 
-          <h1 className="mt-2 text-4xl md:text-5xl font-bold tracking-tight">
-            Hi, I’m <span className="text-slate-900">Mohd Faheem</span>
+           <h1 className="mt-2 text-[2.1rem] leading-tight md:text-5xl md:leading-tight font-bold tracking-tight">
+         Hi, I’m <span className="text-slate-900">Mohd Faheem</span>
           </h1>
+
 
           <p className="mt-4 max-w-2xl text-slate-600">
             I build modern web apps with <strong>React</strong>,{" "}
             <strong>Node.js</strong> and <strong>MongoDB</strong>.
           </p>
 
-          {/* CTAs: mobile = full width, stacked; desktop = inline */}
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
-            <a
-              href="#contact"
-              className="btn btn-primary btn-block sm:w-auto"
-            >
-              Hire Me
-            </a>
+         {/* CTAs */}
+<div className="mt-6 grid gap-3 sm:flex sm:flex-wrap">
+  <a
+    href="#contact"
+    className="w-full sm:w-auto px-4 py-3 rounded bg-blue-600 text-white hover:bg-blue-700 transition text-center"
+  >
+    Hire Me
+  </a>
 
-            {/* CV is in /public so relative url works on GH Pages */}
-            <a
-              href="Faheem_Resume_2025.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-outline btn-block sm:w-auto"
-            >
-              Download CV
-            </a>
+  <a
+    href="Faheem_Resume_2025.pdf"
+    target="_blank"
+    rel="noreferrer"
+    className="w-full sm:w-auto px-4 py-3 rounded border hover:bg-slate-50 transition text-center"
+  >
+    Download CV
+  </a>
 
-            <a
-              href="https://wa.me/918979391273"
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-outline btn-block sm:w-auto"
-            >
-              WhatsApp
-            </a>
-          </div>
+  <a
+    href="https://wa.me/918979391273"
+    target="_blank"
+    rel="noreferrer"
+    className="w-full sm:w-auto px-4 py-3 rounded border hover:bg-slate-50 transition text-center"
+  >
+    WhatsApp
+  </a>
+</div>
+
 
           <ul className="mt-6 flex flex-wrap gap-2 text-sm text-slate-600">
             <li className="px-3 py-1 rounded-full border">Clean Architecture</li>
