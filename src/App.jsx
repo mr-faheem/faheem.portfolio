@@ -78,26 +78,26 @@ export default function App() {
 
           <div className="flex items-center gap-2">
             {/* Theme toggle (tiny, unobtrusive) */}
+            
             <button
               type="button"
               onClick={toggle}
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-              className="rounded-xl border px-2 py-1 text-sm hover:bg-slate-50 dark:hover:bg-slate-800"
+              className="rounded-xl border px-2 py-1 text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
               title={theme === "dark" ? "Light mode" : "Dark mode"}
             >
               {theme === "dark" ? (
-                // Sun icon
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 4V2M12 22v-2M4.93 4.93L3.51 3.51M20.49 20.49l-1.42-1.42M4 12H2m20 0h-2M4.93 19.07L3.51 20.49M20.49 3.51l-1.42 1.42" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
                   <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.6"/>
                 </svg>
               ) : (
-                // Moon icon
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               )}
             </button>
+
 
             <a
               href="#contact"
