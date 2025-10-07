@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
-  darkMode: 'class',               // <-- NEW (class-based dark mode)
+  darkMode: 'class',                 // class-based dark mode (single line)
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -10,7 +9,7 @@ module.exports = {
       },
       colors: {
         primary: {
-          DEFAULT: "#0ea5e9", // sky-500 as primary
+          DEFAULT: "#0ea5e9",
           50: "#f0f9ff",
           100: "#e0f2fe",
           200: "#bae6fd",
@@ -22,7 +21,6 @@ module.exports = {
           800: "#075985",
           900: "#0c4a6e",
         },
-        // optional accent (teal)
         accent: { DEFAULT: "#14b8a6" },
       },
       container: {

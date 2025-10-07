@@ -6,10 +6,24 @@
     <title>Mohd Faheem — Full Stack Developer</title>
     <meta name="description" content="Portfolio of Mohd Faheem — Full Stack Developer building modern web apps with React, Node, and MongoDB." />
     <link rel="icon" href="/favicon.svg" />
-    <!-- font (optional) -->
+
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- 🌓 Set initial theme BEFORE app mounts -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = saved ? saved : (systemDark ? 'dark' : 'light');
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
