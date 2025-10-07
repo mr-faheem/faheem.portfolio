@@ -104,3 +104,10 @@ a { @apply text-primary-600 hover:text-primary-700 underline-offset-4 hover:unde
 .card-elev {
   @apply shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-10px_rgba(2,132,199,0.15)];
 }
+
+/* -----------------------------
+   Make the plain `border` utility look right in dark
+------------------------------ */
+@layer base {
+  .border { @apply border-slate-200 dark:border-slate-800; }
+}
