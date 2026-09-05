@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',                 // ✅ keep only one
+  darkMode: 'class',
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Manrope", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       colors: {
         primary: {
@@ -21,12 +21,6 @@ module.exports = {
           800: "#075985",
           900: "#0c4a6e",
         },
-        accent: { DEFAULT: "#14b8a6" },
-      },
-      container: {
-        center: true,
-        padding: "1rem",
-        screens: { lg: "1024px", xl: "1152px", "2xl": "1280px" },
       },
     },
   },

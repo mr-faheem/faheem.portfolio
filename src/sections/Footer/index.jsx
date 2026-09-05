@@ -1,70 +1,24 @@
 import React from "react";
+import Icon from "../../components/common/Icons.jsx";
 
 export default function Footer() {
   return (
-    <footer className="border-t py-8">
-      <div className="container">
-        <div className="flex flex-col items-center gap-4 text-sm text-slate-500 md:flex-row md:justify-between">
-          {/* left: copyright */}
-          <p className="text-center md:text-left">
-            © 2025 Mohd Faheem — All rights reserved.
-          </p>
+    <footer className="border-t border-slate-200/80 py-8 dark:border-white/10">
+      <div className="container flex flex-col items-center justify-between gap-5 md:flex-row">
+        <div className="text-center md:text-left">
+          <a href="#hero" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-950 no-underline dark:text-white">
+            <span className="brand-symbol brand-symbol-small">F</span>
+            Mohd Faheem
+          </a>
+          <p className="mt-2 text-xs text-slate-400">© 2026 Mohd Faheem. Built with React.</p>
+        </div>
 
-          {/* right: quick links */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="mailto:gourfaheem55@gmail.com"
-              className="hover:text-slate-700"
-              aria-label="Email"
-              title="Email"
-            >
-              Email
-            </a>
-            <span className="text-slate-300">•</span>
-            <a
-              href="https://www.linkedin.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-slate-700"
-              aria-label="LinkedIn"
-              title="LinkedIn"
-            >
-              LinkedIn
-            </a>
-            <span className="text-slate-300">•</span>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-slate-700"
-              aria-label="GitHub"
-              title="GitHub"
-            >
-              GitHub
-            </a>
-            <span className="text-slate-300">•</span>
-            <a
-              href="https://wa.me/918979391273"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-slate-700"
-              aria-label="WhatsApp"
-              title="WhatsApp"
-            >
-              WhatsApp
-            </a>
-
-            {/* back to top */}
-            <span className="hidden sm:inline text-slate-300">•</span>
-            <a
-              href="#hero"
-              className="hidden sm:inline hover:text-slate-700"
-              aria-label="Back to top"
-              title="Back to top"
-            >
-              ↑ Back to top
-            </a>
-          </div>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <a href="mailto:gourfaheem55@gmail.com" className="footer-icon" aria-label="Email"><Icon name="mail" size={17} /></a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="footer-icon" aria-label="LinkedIn"><Icon name="linkedin" size={17} /></a>
+          <a href="https://github.com/mr-faheem" target="_blank" rel="noreferrer" className="footer-icon" aria-label="GitHub"><Icon name="github" size={17} /></a>
+          <a href="https://wa.me/918979391273" target="_blank" rel="noreferrer" className="footer-icon" aria-label="WhatsApp"><Icon name="message" size={17} /></a>
+          <a href="#hero" className="footer-icon ml-2" aria-label="Back to top"><Icon name="chevronUp" size={17} /></a>
         </div>
       </div>
     </footer>

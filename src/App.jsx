@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-// Sections
 import Hero from "./sections/Hero/index.jsx";
 import About from "./sections/About/index.jsx";
 import Skills from "./sections/Skills/index.jsx";
@@ -9,107 +8,121 @@ import Experience from "./sections/Experience/index.jsx";
 import Contact from "./sections/Contact/index.jsx";
 import Footer from "./sections/Footer/index.jsx";
 
-// Active section hook (center-of-viewport version)
+import Icon from "./components/common/Icons.jsx";
 import useActiveSection from "./hooks/useActiveSection.js";
-import useTheme from "./hooks/useTheme.js"; // <-- NEW
+import useTheme from "./hooks/useTheme.js";
+import useReveal from "./hooks/useReveal.js";
+
+const navItems = [
+  ["about", "About"],
+  ["skills", "Skills"],
+  ["projects", "Projects"],
+  ["experience", "Experience"],
+  ["contact", "Contact"],
+];
 
 export default function App() {
-  // NOTE: IDs MUST match your <section id="..."> attributes
-  const ids = ["hero", "about", "skills", "projects", "experience", "contact"];
-  // a bit top-safe (header height) + center bias
-  const active = useActiveSection(ids, "-64px 0px -40% 0px");
+  const ids = ["hero", ...navItems.map(([id]) => id)];
+  const active = useActiveSection(ids, "-76px 0px -40% 0px");
+  const { theme, toggle } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const { theme, toggle } = useTheme(); // <-- NEW
+  useReveal();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [active]);
 
   const linkClass = (id) =>
-    `px-2 py-1 rounded transition-colors ${
-      active === id
-        ? "text-blue-600 font-semibold"
-        : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
-    }`;
+    `nav-link ${active === id ? "nav-link-active" : ""}`;
 
   return (
-    <main className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-900/60">
-        <nav className="container px-4 sm:px-6 md:px-8 flex items-center justify-between h-14 md:h-16">
-          <a href="#hero" className="font-semibold select-none">
-            Faheem
+    <main className="min-h-screen overflow-x-clip">
+      <div className="ambient-bg" aria-hidden="true" />
+
+      <header className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}>
+        <nav className="container flex h-[72px] items-center justify-between gap-4">
+          <a href="#hero" className="brand-mark" aria-label="Mohd Faheem home">
+            <span className="brand-symbol">F</span>
+            <span className="hidden xs:inline sm:inline">Faheem</span>
+            <span className="brand-dot" />
           </a>
 
-          {/* Desktop links */}
-          <div className="hidden sm:flex items-center gap-6 text-sm">
-            <a
-              href="#about"
-              className={linkClass("about")}
-              aria-current={active === "about" ? "page" : undefined}
-            >
-              About
-            </a>
-            <a
-              href="#skills"
-              className={linkClass("skills")}
-              aria-current={active === "skills" ? "page" : undefined}
-            >
-              Skills
-            </a>
-            <a
-              href="#projects"
-              className={linkClass("projects")}
-              aria-current={active === "projects" ? "page" : undefined}
-            >
-              Projects
-            </a>
-            <a
-              href="#experience"
-              className={linkClass("experience")}
-              aria-current={active === "experience" ? "page" : undefined}
-            >
-              Experience
-            </a>
-            <a
-              href="#contact"
-              className={linkClass("contact")}
-              aria-current={active === "contact" ? "page" : undefined}
-            >
-              Contact
-            </a>
+          <div className="hidden md:flex items-center rounded-full border border-slate-200/70 bg-white/65 p-1 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/45">
+            {navItems.map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={linkClass(id)}
+                aria-current={active === id ? "page" : undefined}
+              >
+                {label}
+              </a>
+            ))}
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Theme toggle (tiny, unobtrusive) */}
-            
             <button
               type="button"
               onClick={toggle}
+              role="switch"
+              aria-checked={theme === "dark"}
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-              className="rounded-xl border px-2 py-1 text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
-              title={theme === "dark" ? "Light mode" : "Dark mode"}
+              className={`theme-switch ${theme === "dark" ? "theme-switch-dark" : ""}`}
+              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {theme === "dark" ? (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 4V2M12 22v-2M4.93 4.93L3.51 3.51M20.49 20.49l-1.42-1.42M4 12H2m20 0h-2M4.93 19.07L3.51 20.49M20.49 3.51l-1.42 1.42" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-                  <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.6"/>
-                </svg>
-              ) : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              )}
+              <span className="theme-switch-icon theme-switch-sun" aria-hidden="true">
+                <Icon name="sun" size={15} />
+              </span>
+              <span className="theme-switch-icon theme-switch-moon" aria-hidden="true">
+                <Icon name="moon" size={15} />
+              </span>
+              <span className="theme-switch-thumb" aria-hidden="true">
+                <Icon name={theme === "dark" ? "moon" : "sun"} size={15} />
+              </span>
             </button>
 
-
-            <a
-              href="#contact"
-              className="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition font-medium"
-            >
-              Hire Me
+            <a href="#contact" className="btn btn-primary hidden sm:inline-flex">
+              Let&apos;s Talk
+              <Icon name="arrowUpRight" size={16} />
             </a>
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen((v) => !v)}
+              className="icon-button md:hidden"
+              aria-label="Toggle navigation"
+              aria-expanded={menuOpen}
+            >
+              <Icon name={menuOpen ? "close" : "menu"} size={20} />
+            </button>
           </div>
         </nav>
+
+        <div className={`mobile-nav md:hidden ${menuOpen ? "mobile-nav-open" : ""}`}>
+          <div className="container pb-4">
+            <div className="rounded-2xl border border-slate-200/80 bg-white/95 p-2 shadow-xl shadow-slate-900/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95">
+              {navItems.map(([id, label]) => (
+                <a key={id} href={`#${id}`} className={linkClass(id)}>
+                  {label}
+                </a>
+              ))}
+              <a href="#contact" className="btn btn-primary mt-2 w-full">
+                Let&apos;s Talk <Icon name="arrowUpRight" size={16} />
+              </a>
+            </div>
+          </div>
+        </div>
       </header>
 
-      {/* Sections */}
       <Hero />
       <About />
       <Skills />

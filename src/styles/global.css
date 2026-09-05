@@ -2,112 +2,569 @@
 @tailwind components;
 @tailwind utilities;
 
-/* -----------------------------
-   Base resets / behavior
------------------------------- */
-:root { color-scheme: light dark; }
-html, body, #root { height: 100%; }
-html { scroll-behavior: smooth; }
-
-/* Default theme */
-body {
-  @apply bg-white text-slate-800 antialiased font-sans
-         dark:bg-slate-900 dark:text-slate-100;
+:root {
+  color-scheme: light dark;
+  --header-h: 72px;
 }
 
-/* Links (keep nav clean: underline only on hover) */
-a { @apply text-primary-600 hover:text-primary-700 underline-offset-4 hover:underline; }
+html,
+body,
+#root {
+  min-height: 100%;
+}
 
-/* -----------------------------
-   Typographic scale (mobile-first)
-   Subtle, premium-looking sizes
------------------------------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 18px);
+}
+
+body {
+  @apply m-0 bg-[#f8fafc] font-sans text-slate-800 antialiased transition-colors duration-300 dark:bg-[#070b14] dark:text-slate-100;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  @apply bg-primary-500/20 text-slate-950 dark:text-white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  @apply no-underline;
+}
+
+img {
+  display: block;
+}
+
 @layer base {
-  h1 { /* mobile tighter; desktop roomy */
-    font-size: clamp(1.75rem, 4.5vw, 3rem);        /* ~28 → 48 */
-    line-height: 1.15;
-    @apply font-bold tracking-tight;
-  }
-  h2 {
-    font-size: clamp(1.375rem, 3.5vw, 2rem);       /* ~22 → 32 */
-    line-height: 1.2;
-    @apply font-semibold tracking-tight;
-  }
+  h1,
+  h2,
   h3 {
-    font-size: clamp(1.125rem, 2.5vw, 1.5rem);     /* ~18 → 24 */
-    line-height: 1.25;
+    @apply tracking-[-0.035em];
+  }
+
+  h1 {
+    font-size: clamp(2.75rem, 7vw, 5.75rem);
+    line-height: 0.98;
+    @apply font-bold;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4.2vw, 3.6rem);
+    line-height: 1.05;
+    @apply font-bold;
+  }
+
+  h3 {
     @apply font-semibold;
   }
-  p {
-    @apply leading-relaxed;
-  }
 }
 
-/* -----------------------------
-   Layout helpers
------------------------------- */
-
-/* “container” utility used across the app */
 .container {
-  @apply mx-auto max-w-7xl px-4 sm:px-6 md:px-8;
+  @apply mx-auto w-full max-w-[1180px] px-5 sm:px-6 lg:px-8;
 }
 
-/* Generic section rhythm (safe; sections can still override) */
-.section {
-  @apply py-12 md:py-20;
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 7% 8%, rgba(14, 165, 233, 0.08), transparent 28rem),
+    radial-gradient(circle at 93% 16%, rgba(99, 102, 241, 0.07), transparent 30rem),
+    linear-gradient(to bottom, transparent, rgba(248, 250, 252, 0.25));
 }
 
-/* -----------------------------
-   Components: Cards, Buttons, Inputs
------------------------------- */
+.dark .ambient-bg {
+  background:
+    radial-gradient(circle at 7% 8%, rgba(56, 189, 248, 0.09), transparent 30rem),
+    radial-gradient(circle at 93% 14%, rgba(99, 102, 241, 0.10), transparent 32rem),
+    radial-gradient(circle at 50% 92%, rgba(20, 184, 166, 0.05), transparent 28rem);
+}
+
+.section-shell {
+  @apply relative border-t border-slate-200/70 py-20 sm:py-24 lg:py-28 dark:border-white/[0.07];
+}
+
+.section-tint {
+  @apply bg-white/45 dark:bg-white/[0.018];
+}
+
+.site-header {
+  @apply sticky top-0 z-50 border-b border-transparent transition-all duration-300;
+  background: rgba(248, 250, 252, 0.62);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.dark .site-header {
+  background: rgba(7, 11, 20, 0.62);
+}
+
+.site-header-scrolled {
+  @apply border-slate-200/80 shadow-[0_12px_35px_-28px_rgba(15,23,42,.55)] dark:border-white/10;
+}
+
+.brand-mark {
+  @apply inline-flex items-center gap-2.5 text-sm font-semibold tracking-tight text-slate-950 no-underline dark:text-white;
+}
+
+.brand-symbol {
+  @apply grid h-9 w-9 place-items-center rounded-xl bg-slate-950 text-sm font-bold text-white shadow-lg shadow-slate-950/10 dark:bg-white dark:text-slate-950;
+}
+
+.brand-symbol-small {
+  @apply h-8 w-8 rounded-lg text-xs;
+}
+
+.brand-dot {
+  @apply h-1.5 w-1.5 rounded-full bg-primary-500;
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.10);
+}
+
+.nav-link {
+  @apply relative block rounded-full px-3.5 py-2 text-[13px] font-medium text-slate-500 transition-all duration-200 hover:bg-slate-100/80 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-white;
+}
+
+.nav-link-active {
+  @apply bg-white text-slate-950 shadow-sm dark:bg-white/[0.08] dark:text-white;
+}
+
+.mobile-nav {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height 260ms ease, opacity 200ms ease, transform 200ms ease;
+}
+
+.mobile-nav-open {
+  max-height: 460px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.icon-button {
+  @apply inline-grid h-10 w-10 place-items-center rounded-xl border border-slate-200/80 bg-white/60 text-slate-600 transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white hover:text-slate-950 hover:shadow-md dark:border-white/10 dark:bg-white/[0.035] dark:text-slate-300 dark:hover:border-white/20 dark:hover:bg-white/[0.07] dark:hover:text-white;
+}
+
 @layer components {
-  /* Reusable card */
-  .card {
-    @apply rounded-xl border bg-white/90 shadow-sm
-           transition-shadow
-           dark:bg-slate-900/90 dark:border-slate-700;
-  }
-  .card-hover:hover {
-    @apply shadow-md;
-  }
-
-  /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2
-           rounded-xl px-4 py-2 text-sm font-medium
-           transition-colors disabled:opacity-60 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold no-underline transition-all duration-200 disabled:pointer-events-none disabled:opacity-60;
   }
+
+  .btn-lg {
+    @apply min-h-[46px] px-5 py-3;
+  }
+
   .btn-primary {
-    @apply btn bg-blue-600 text-white hover:bg-blue-700;
-  }
-  .btn-outline {
-    @apply btn border hover:bg-slate-50
-           dark:hover:bg-slate-800/50;
-  }
-  .btn-block {
-    @apply w-full;
+    @apply bg-slate-950 text-white shadow-lg shadow-slate-950/10 hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-primary-600/20 dark:bg-white dark:text-slate-950 dark:hover:bg-primary-300;
   }
 
-  /* Inputs */
-  .input, .textarea {
-    @apply w-full rounded-xl border bg-white/90 px-4 py-3 text-base
-           placeholder:text-slate-400
-           focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500
-           dark:bg-slate-900/90 dark:border-slate-700;
+  .btn-secondary {
+    @apply border border-slate-200 bg-white/75 text-slate-700 shadow-sm hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.035] dark:text-slate-200 dark:hover:border-white/20 dark:hover:bg-white/[0.07] dark:hover:text-white;
   }
-  .textarea { @apply min-h-[9rem] resize-y; }
+
+  .btn-ghost {
+    @apply text-slate-500 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-white;
+  }
+
+  .premium-card {
+    @apply rounded-[1.6rem] border border-slate-200/75 bg-white/75 shadow-[0_20px_70px_-45px_rgba(15,23,42,.35)] backdrop-blur-sm transition-all duration-300 dark:border-white/[0.09] dark:bg-white/[0.035] dark:shadow-[0_22px_70px_-45px_rgba(0,0,0,.85)];
+  }
+
+  .soft-panel {
+    @apply rounded-2xl border border-slate-200/70 bg-slate-50/70 dark:border-white/[0.07] dark:bg-white/[0.025];
+  }
+
+  .tech-chip {
+    @apply inline-flex items-center rounded-full border border-slate-200/80 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:border-white/10 dark:bg-white/[0.035] dark:text-slate-400;
+  }
+
+  .input,
+  .textarea {
+    @apply mt-2 w-full rounded-xl border border-slate-200/90 bg-white/85 px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary-400 focus:ring-4 focus:ring-primary-500/10 dark:border-white/10 dark:bg-slate-950/55 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-primary-400/70;
+  }
+
+  .textarea {
+    @apply min-h-[10rem] resize-y;
+  }
 }
 
-/* -----------------------------
-   Subtle elevation for skills/projects (opt-in)
------------------------------- */
-.card-elev {
-  @apply shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-10px_rgba(2,132,199,0.15)];
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  opacity: 0.36;
+  mask-image: linear-gradient(to bottom, black 20%, transparent 92%);
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.10) 1px, transparent 1px);
+  background-size: 52px 52px;
 }
 
-/* -----------------------------
-   Make the plain `border` utility look right in dark
------------------------------- */
-@layer base {
-  .border { @apply border-slate-200 dark:border-slate-800; }
+.dark .hero-grid {
+  opacity: 0.18;
+}
+
+.availability-pill {
+  @apply inline-flex flex-wrap items-center gap-2 rounded-full border border-slate-200/80 bg-white/75 px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.13em] text-slate-500 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.035] dark:text-slate-400;
+}
+
+.availability-dot {
+  @apply h-2 w-2 rounded-full bg-emerald-500;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.10);
+}
+
+.hero-title {
+  @apply max-w-[850px] text-slate-950 dark:text-white;
+}
+
+.gradient-text {
+  color: transparent;
+  background: linear-gradient(110deg, #0284c7 0%, #2563eb 48%, #7c3aed 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.dark .gradient-text {
+  background-image: linear-gradient(110deg, #7dd3fc 0%, #60a5fa 48%, #a78bfa 100%);
+}
+
+.profile-frame {
+  @apply relative rounded-[2rem] border border-white/70 bg-white/65 p-2 shadow-[0_30px_90px_-35px_rgba(15,23,42,.45)] backdrop-blur dark:border-white/10 dark:bg-white/[0.04] dark:shadow-[0_35px_100px_-35px_rgba(0,0,0,.9)];
+}
+
+.profile-orb {
+  @apply absolute rounded-full blur-2xl;
+}
+
+.profile-orb-one {
+  @apply -right-4 -top-5 h-28 w-28 bg-primary-400/20;
+}
+
+.profile-orb-two {
+  @apply -bottom-4 -left-4 h-24 w-24 bg-violet-400/15;
+}
+
+.profile-status-card {
+  @apply absolute -bottom-5 left-5 right-5 rounded-2xl border border-white/75 bg-white/90 p-3.5 shadow-xl shadow-slate-900/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/85;
+}
+
+.section-heading {
+  @apply mb-10 max-w-3xl sm:mb-12;
+}
+
+.eyebrow {
+  @apply flex w-fit items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-primary-600 dark:text-primary-300;
+}
+
+.eyebrow-dot {
+  @apply h-1.5 w-1.5 rounded-full bg-primary-500;
+}
+
+.section-title {
+  @apply mt-4 text-slate-950 dark:text-white;
+}
+
+.section-subtitle {
+  @apply mt-4 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-400 sm:text-base;
+}
+
+.section-icon {
+  @apply grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-primary-500/15 bg-primary-500/10 text-primary-600 dark:text-primary-300;
+}
+
+.section-icon-small {
+  @apply h-10 w-10 rounded-xl;
+}
+
+.timeline-mini-item {
+  @apply relative flex flex-col gap-1 pl-1 text-sm;
+}
+
+.timeline-mini-item::before {
+  content: "";
+  @apply absolute -left-[23px] top-1.5 h-2 w-2 rounded-full border-2 border-white bg-primary-500 dark:border-[#0b111d];
+}
+
+.timeline-mini-item strong {
+  @apply font-semibold text-slate-900 dark:text-white;
+}
+
+.timeline-mini-item span {
+  @apply text-xs text-slate-500 dark:text-slate-400;
+}
+
+.skill-card {
+  @apply flex min-h-[104px] items-center gap-4 rounded-2xl border border-slate-200/80 bg-white/70 p-4 shadow-[0_12px_35px_-30px_rgba(15,23,42,.35)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary-300/70 hover:bg-white hover:shadow-[0_18px_45px_-28px_rgba(14,165,233,.35)] dark:border-white/[0.08] dark:bg-white/[0.025] dark:hover:border-primary-400/25 dark:hover:bg-white/[0.05];
+}
+
+.skill-icon-wrap {
+  @apply grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-slate-200/80 bg-slate-50 text-slate-700 transition-all duration-300 group-hover:border-primary-500/20 group-hover:bg-primary-500/10 group-hover:text-primary-600 dark:border-white/10 dark:bg-slate-950/60 dark:text-slate-300 dark:group-hover:text-primary-300;
+}
+
+.project-card {
+  @apply overflow-hidden rounded-[1.6rem] border border-slate-200/80 bg-white/80 shadow-[0_20px_70px_-48px_rgba(15,23,42,.45)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_28px_80px_-42px_rgba(14,165,233,.30)] dark:border-white/[0.08] dark:bg-white/[0.03] dark:hover:border-white/15;
+}
+
+.project-preview {
+  @apply relative h-56 overflow-hidden border-b border-slate-200/70 p-5 dark:border-white/[0.08];
+}
+
+.project-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: .45;
+}
+
+.project-browser {
+  @apply relative mx-auto h-full max-w-md overflow-hidden rounded-2xl border border-white/15 bg-slate-950/85 shadow-2xl shadow-slate-950/25 backdrop-blur;
+  transform: perspective(900px) rotateX(2deg) rotateY(-2deg);
+  transition: transform 350ms ease;
+}
+
+.group:hover .project-browser {
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateY(-3px);
+}
+
+.project-number {
+  @apply text-3xl font-bold tracking-[-0.05em] text-slate-200 dark:text-white/10;
+}
+
+.project-link {
+  @apply inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition hover:text-primary-600 dark:text-slate-300 dark:hover:text-primary-300;
+}
+
+.experience-timeline {
+  @apply relative space-y-7;
+}
+
+.experience-timeline::before {
+  content: "";
+  @apply absolute bottom-8 left-5 top-8 w-px bg-gradient-to-b from-primary-400/60 via-slate-200 to-transparent dark:via-white/10;
+}
+
+.experience-row {
+  @apply relative grid grid-cols-[40px_1fr] gap-4 sm:grid-cols-[44px_1fr] sm:gap-6;
+}
+
+.timeline-marker {
+  @apply relative z-10 grid h-10 w-10 place-items-center rounded-xl border border-primary-500/20 bg-[#f8fafc] text-primary-600 shadow-sm dark:bg-[#070b14] dark:text-primary-300;
+}
+
+.experience-card {
+  @apply p-5 sm:p-7;
+}
+
+.timeline-type {
+  @apply text-[10px] font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-300;
+}
+
+.date-chip {
+  @apply w-fit rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500 dark:border-white/10 dark:bg-white/[0.035] dark:text-slate-400;
+}
+
+.experience-point {
+  @apply flex items-start gap-2.5 rounded-xl border border-slate-200/60 bg-slate-50/60 p-3.5 dark:border-white/[0.06] dark:bg-white/[0.02];
+}
+
+.experience-point svg {
+  @apply mt-1 shrink-0 text-emerald-500;
+}
+
+.contact-grid {
+  @apply grid overflow-hidden rounded-[1.8rem] border border-slate-200/80 bg-white/55 shadow-[0_25px_80px_-50px_rgba(15,23,42,.5)] backdrop-blur lg:grid-cols-[.9fr_1.1fr] dark:border-white/[0.08] dark:bg-white/[0.025];
+}
+
+.contact-panel {
+  @apply relative overflow-hidden border-b border-slate-200/80 p-6 sm:p-8 lg:border-b-0 lg:border-r dark:border-white/[0.08];
+  background:
+    radial-gradient(circle at 10% 5%, rgba(14, 165, 233, .12), transparent 18rem),
+    linear-gradient(145deg, rgba(248,250,252,.95), rgba(255,255,255,.65));
+}
+
+.dark .contact-panel {
+  background:
+    radial-gradient(circle at 10% 5%, rgba(56, 189, 248, .10), transparent 18rem),
+    linear-gradient(145deg, rgba(15,23,42,.72), rgba(2,6,23,.34));
+}
+
+.contact-method {
+  @apply flex items-center gap-3 rounded-2xl border border-slate-200/80 bg-white/70 p-3.5 text-slate-600 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary-300 hover:bg-white hover:text-slate-950 hover:shadow-md dark:border-white/10 dark:bg-white/[0.035] dark:text-slate-300 dark:hover:border-primary-400/25 dark:hover:bg-white/[0.06] dark:hover:text-white;
+}
+
+.contact-method > span {
+  @apply grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-500/10 text-primary-600 dark:text-primary-300;
+}
+
+.contact-method div {
+  @apply min-w-0;
+}
+
+.contact-method small {
+  @apply block text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400;
+}
+
+.contact-method strong {
+  @apply mt-0.5 block truncate text-sm font-semibold;
+}
+
+.field-label > span {
+  @apply text-xs font-semibold text-slate-600 dark:text-slate-300;
+}
+
+.footer-icon {
+  @apply grid h-9 w-9 place-items-center rounded-xl border border-slate-200/80 bg-white/60 text-slate-500 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.03] dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-white/[0.06] dark:hover:text-white;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 650ms cubic-bezier(.2,.75,.25,1), transform 650ms cubic-bezier(.2,.75,.25,1);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 639px) {
+  .profile-status-card {
+    @apply left-3 right-3;
+  }
+
+  .contact-method strong {
+    max-width: 210px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------
+   Premium theme switch
+---------------------------------- */
+.theme-switch {
+  @apply relative inline-flex h-[42px] w-[82px] shrink-0 items-center rounded-full border border-slate-200/90 bg-white/75 p-[4px] text-slate-500 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-slate-300 hover:bg-white hover:shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-primary-500/15 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-white/[0.07];
+}
+
+.theme-switch::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, rgba(250, 204, 21, 0.08), rgba(14, 165, 233, 0.05));
+  pointer-events: none;
+}
+
+.dark .theme-switch::before {
+  background: linear-gradient(90deg, rgba(250, 204, 21, 0.04), rgba(96, 165, 250, 0.10));
+}
+
+.theme-switch-icon {
+  @apply absolute z-[1] grid h-8 w-8 place-items-center rounded-full transition-all duration-300;
+  top: 4px;
+}
+
+.theme-switch-sun {
+  left: 4px;
+  color: #d97706;
+}
+
+.theme-switch-moon {
+  right: 4px;
+  color: #64748b;
+}
+
+.dark .theme-switch-moon {
+  color: #93c5fd;
+}
+
+.theme-switch-thumb {
+  @apply relative z-[2] grid h-8 w-8 place-items-center rounded-full bg-white text-amber-500 shadow-[0_5px_15px_-5px_rgba(15,23,42,.45)] transition-all duration-300 ease-out dark:bg-slate-950 dark:text-blue-300;
+  transform: translateX(0);
+}
+
+.theme-switch-dark .theme-switch-thumb {
+  transform: translateX(40px);
+}
+
+.theme-switch:hover .theme-switch-thumb {
+  box-shadow: 0 7px 20px -7px rgba(14, 165, 233, 0.55);
+}
+
+/* ---------------------------------
+   Learning / certification cards
+---------------------------------- */
+.learning-mini-card {
+  @apply flex min-w-0 items-center gap-3 rounded-xl border border-slate-200/70 bg-slate-50/65 p-3 dark:border-white/[0.07] dark:bg-white/[0.025];
+}
+
+.learning-mini-icon {
+  @apply grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary-500/10 text-primary-600 dark:text-primary-300;
+}
+
+.learning-mini-card strong {
+  @apply block truncate text-xs font-semibold text-slate-900 dark:text-white;
+}
+
+.learning-mini-card > div > span {
+  @apply mt-0.5 block truncate text-[10px] text-slate-500 dark:text-slate-400;
+}
+
+.learning-status {
+  @apply ml-auto inline-flex shrink-0 items-center rounded-full border border-primary-500/15 bg-primary-500/10 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-primary-700 dark:text-primary-300;
+}
+
+.learning-status-complete {
+  @apply border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300;
+}
+
+.learning-card {
+  @apply flex items-center gap-3 p-4;
+}
+
+.learning-card-icon {
+  @apply grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-primary-500/15 bg-primary-500/10 text-primary-600 dark:text-primary-300;
+}
+
+@media (max-width: 420px) {
+  .theme-switch {
+    width: 76px;
+  }
+
+  .theme-switch-dark .theme-switch-thumb {
+    transform: translateX(34px);
+  }
 }
