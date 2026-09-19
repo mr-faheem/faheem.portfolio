@@ -1,85 +1,117 @@
 import React from "react";
 import SectionHeading from "../../components/common/SectionHeading.jsx";
 import Icon from "../../components/common/Icons.jsx";
-import nexoraPreview from "../../assets/images/projects/nexora-home.png";
+import usePointerTilt from "../../hooks/usePointerTilt.js";
+import { projects } from "../../data/projects.js";
 
-const items = [
-  {
-    id: 1,
-    title: "Nexora E-Commerce",
-    desc: "A full-stack fashion e-commerce platform with a polished storefront, product discovery, shopping flows and an admin dashboard for managing products, orders, users and store activity.",
-    accent: "from-cyan-500/20 via-blue-500/10 to-violet-500/15",
-    image: nexoraPreview,
-    tags: ["React", "Node.js", "Express", "MongoDB"],
-    liveUrl: "https://nexora-ecommerce-psi.vercel.app/",
-    repoUrl: "https://github.com/mr-faheem/nexora-ecommerce",
-  },
-  {
-    id: 2,
-    title: "Project 2",
-    desc: "Short description…",
-    accent: "from-violet-500/20 via-fuchsia-500/10 to-blue-500/15",
-    tags: ["React", "Node.js", "MongoDB"],
-  },
-  {
-    id: 3,
-    title: "Project 3",
-    desc: "Short description…",
-    accent: "from-emerald-500/20 via-cyan-500/10 to-blue-500/15",
-    tags: ["React", "Node.js", "MongoDB"],
-  },
-  {
-    id: 4,
-    title: "Project 4",
-    desc: "Short description…",
-    accent: "from-amber-500/15 via-orange-500/10 to-rose-500/15",
-    tags: ["React", "Node.js", "MongoDB"],
-  },
-];
+// Strips a live URL down to a bare host for the browser-frame address bar,
+// e.g. "https://nexora-ecommerce-psi.vercel.app/" -> "nexora-ecommerce-psi.vercel.app"
+function toDisplayUrl(url, fallback) {
+  if (!url) return fallback;
+  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
 
-function Preview({ item }) {
+function FlagshipProject({ project, index }) {
+  const { ref: mediaRef, onPointerMove, onPointerLeave } = usePointerTilt({ maxTilt: 4 });
+
   return (
-    <div className={`project-preview bg-gradient-to-br ${item.accent}`}>
-      <div className="project-browser flex flex-col">
-        <div className="flex shrink-0 items-center gap-1.5 border-b border-white/10 px-3 py-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-rose-400/80" />
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-400/80" />
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
-        </div>
+    <article data-reveal className="flagship-card">
+      <div className="flagship-grid">
+        {/* Media first in source order: image-on-top on mobile, image-on-left on desktop */}
+        <div className="flagship-media">
+          <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-primary-500/15 via-cyan-400/10 to-violet-500/10 blur-3xl" />
 
-        {item.image ? (
-          <div className="min-h-0 flex-1 overflow-hidden bg-white">
-            <img
-              src={item.image}
-              alt={`${item.title} website preview`}
-              className="h-full w-full object-cover object-top"
-            />
-          </div>
-        ) : (
-          <div className="grid min-h-0 flex-1 place-items-center px-6 pb-8 pt-5 text-center">
-            <div>
-              <span className="mx-auto grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/10 text-white shadow-lg backdrop-blur">
-                <Icon name="code" size={23} />
-              </span>
-              <p className="mt-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/65">Project Preview</p>
-              <p className="mt-1 text-sm font-semibold text-white">{item.title}</p>
+          <div
+            ref={mediaRef}
+            onPointerMove={onPointerMove}
+            onPointerLeave={onPointerLeave}
+            className="flagship-browser tilt-target spotlight-surface glow-border"
+          >
+            <div className="flagship-browser-chrome">
+              <span className="h-1.5 w-1.5 rounded-full bg-rose-400/80" />
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400/80" />
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
+              <span className="flagship-browser-url">{toDisplayUrl(project.liveUrl, project.name)}</span>
+            </div>
+            <div className="flagship-browser-viewport">
+              <img src={project.image} alt={project.imageAlt} className="h-full w-full object-cover object-top" />
             </div>
           </div>
-        )}
+        </div>
+
+        <div className="flagship-content">
+          <p className="flagship-eyebrow">
+            <span className="capability-index">0{index + 1}</span> Flagship Project
+          </p>
+
+          <h3 className="flagship-title">{project.name}</h3>
+          <p className="flagship-subtitle">{project.subtitle}</p>
+          <p className="flagship-desc">{project.description}</p>
+
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {project.stack.map((tech) => (
+              <li key={tech} className="tech-chip">
+                {tech}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 flex flex-wrap gap-3 border-t border-slate-200/70 pt-5 dark:border-white/10">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary"
+                aria-label={`Open ${project.name} live demo in a new tab`}
+              >
+                <Icon name="external" size={16} /> Live Demo
+              </a>
+            )}
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-secondary"
+                aria-label={`Open ${project.name} GitHub repository in a new tab`}
+              >
+                <Icon name="github" size={16} /> GitHub Repository
+              </a>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* Engineering highlights */}
+      <div className="flagship-highlights">
+        {project.highlights.map((h, i) => (
+          <div key={h.label} data-reveal style={{ "--delay": `${i * 60}ms` }} className="highlight-card">
+            <span className="system-node-icon">
+              <Icon name={h.icon} size={17} />
+            </span>
+            <div className="min-w-0">
+              <p className="highlight-label">{h.label}</p>
+              <p className="highlight-detail">{h.detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </article>
   );
 }
 
 export default function Projects() {
+  const featuredProjects = projects.filter((p) => p.featured);
+
   return (
     <section id="projects" className="section-shell section-tint">
       <div className="container">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             eyebrow="PROJECTS"
-            title="Selected work & experiments."
-            subtitle="A cleaner showcase for live builds, source code and the technologies used behind each project."
+            title="Selected engineering work."
+            subtitle="One flagship build, shown in full — a real full-stack commerce system, not a tutorial clone."
           />
           <a
             href="https://github.com/mr-faheem"
@@ -93,52 +125,16 @@ export default function Projects() {
           </a>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2" data-reveal>
-          {items.map((p) => (
-            <article key={p.id} className="project-card group">
-              <Preview item={p} />
+        {featuredProjects.map((project, index) => (
+          <FlagshipProject key={project.id} project={project} index={index} />
+        ))}
 
-              <div className="p-5 sm:p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-300">Featured Project</p>
-                    <h3 className="mt-2 text-xl font-semibold text-slate-950 dark:text-white">{p.title}</h3>
-                  </div>
-                  <span className="project-number">0{p.id}</span>
-                </div>
-
-                <p className="mt-3 text-sm leading-7 text-slate-500 dark:text-slate-400">{p.desc}</p>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {p.tags.map((tag) => (
-                    <span key={tag} className="tech-chip">{tag}</span>
-                  ))}
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-3 border-t border-slate-200/70 pt-5 dark:border-white/10">
-                  <a
-                    href={p.liveUrl || "#"}
-                    target={p.liveUrl ? "_blank" : undefined}
-                    rel={p.liveUrl ? "noreferrer" : undefined}
-                    className="project-link"
-                    aria-label={`${p.title} live demo`}
-                  >
-                    <Icon name="external" size={16} /> Live Demo
-                  </a>
-                  <a
-                    href={p.repoUrl || "#"}
-                    target={p.repoUrl ? "_blank" : undefined}
-                    rel={p.repoUrl ? "noreferrer" : undefined}
-                    className="project-link"
-                    aria-label={`${p.title} GitHub repository`}
-                  >
-                    <Icon name="github" size={16} /> Source Code
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        {/*
+          Non-featured projects (project.featured === false) would render
+          here later through a secondary, more compact layout — intentionally
+          not built yet, per the brief. See src/data/projects.js for the
+          full schema and how to add a project.
+        */}
       </div>
     </section>
   );
