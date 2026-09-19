@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Manrope", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["\"JetBrains Mono\"", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       colors: {
         primary: {
@@ -21,6 +22,27 @@ module.exports = {
           800: "#075985",
           900: "#0c4a6e",
         },
+        // "Engineering Console" secondary accent — paired with primary
+        // for gradients/glows, not a replacement for it.
+        accent: {
+          DEFAULT: "#8b5cf6",
+          300: "#c4b5fd",
+          400: "#a78bfa",
+          500: "#8b5cf6",
+          600: "#7c3aed",
+        },
+        // Graphite base for dark mode — warmer / more "engineered"
+        // than a flat slate, used for surfaces and backgrounds.
+        ink: {
+          950: "#090d13",
+          900: "#0b111a",
+          800: "#111927",
+          700: "#1a2333",
+        },
+      },
+      boxShadow: {
+        "glow-primary": "0 0 0 1px rgba(56,189,248,0.15), 0 8px 30px -10px rgba(56,189,248,0.35)",
+        "glow-accent": "0 0 0 1px rgba(167,139,250,0.15), 0 8px 30px -10px rgba(167,139,250,0.35)",
       },
     },
   },
