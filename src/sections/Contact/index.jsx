@@ -70,7 +70,7 @@ export default function Contact() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="btn btn-secondary">
+              <a href="https://www.linkedin.com/in/mohd-faheem-b8782726a/" target="_blank" rel="noreferrer" className="btn btn-secondary">
                 <Icon name="linkedin" size={17} /> LinkedIn
               </a>
               <a href="https://github.com/mr-faheem" target="_blank" rel="noreferrer" className="btn btn-secondary">
