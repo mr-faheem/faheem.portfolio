@@ -382,12 +382,140 @@ img {
   @apply text-xs text-slate-500 dark:text-slate-400;
 }
 
-.skill-card {
-  @apply flex min-h-[104px] items-center gap-4 rounded-2xl border border-slate-200/80 bg-white/70 p-4 shadow-[0_12px_35px_-30px_rgba(15,23,42,.35)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary-300/70 hover:bg-white hover:shadow-[0_18px_45px_-28px_rgba(14,165,233,.35)] dark:border-white/[0.08] dark:bg-white/[0.025] dark:hover:border-primary-400/25 dark:hover:bg-white/[0.05];
+/* ---------------------------------
+   Phase 3 — Skills: Capability Matrix
+---------------------------------- */
+
+.capability-flow {
+  @apply mt-10 flex flex-col items-center gap-3;
 }
 
-.skill-icon-wrap {
-  @apply grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-slate-200/80 bg-slate-50 text-slate-700 transition-all duration-300 group-hover:border-primary-500/20 group-hover:bg-primary-500/10 group-hover:text-primary-600 dark:border-white/10 dark:bg-slate-950/60 dark:text-slate-300 dark:group-hover:text-primary-300;
+.capability-flow-label {
+  @apply font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500;
+}
+
+.capability-flow-row {
+  @apply flex flex-wrap items-center justify-center gap-2;
+}
+
+.capability-pill {
+  @apply inline-flex cursor-default items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/70 px-3.5 py-1.5 text-xs font-semibold text-slate-600 backdrop-blur transition-all duration-300 dark:border-white/10 dark:bg-white/[0.03] dark:text-slate-300;
+}
+
+.capability-pill-active {
+  @apply border-primary-300/80 bg-primary-500/10 text-primary-700 dark:border-primary-400/30 dark:text-primary-300;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.12), 0 8px 24px -14px rgba(14, 165, 233, 0.45);
+}
+
+.capability-link {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.35), rgba(139, 92, 246, 0.2));
+}
+
+.capability-link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: rgb(56, 189, 248);
+  box-shadow: 0 0 8px 1px rgba(56, 189, 233, 0.6);
+  transform: translateY(-50%);
+  animation: flow-right 2.8s var(--ease-premium) infinite;
+}
+
+.capability-grid {
+  margin-top: 2.75rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .capability-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .capability-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .capability-card {
+    grid-column: span 2;
+  }
+
+  /* 5 cards on a 6-col/span-2 grid: row 1 fills naturally (cols 1–2, 3–4, 5–6).
+     Centering Tools + Deployment as a pair on row 2 needs explicit placement,
+     since grid auto-flow alone would pack them against the left edge. */
+  .capability-card:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .capability-card:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+}
+
+.capability-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  background: var(--surface-glass-bg);
+  border: 1px solid var(--surface-glass-border);
+  box-shadow: var(--surface-glass-shadow);
+  backdrop-filter: blur(14px) saturate(140%);
+  transition: transform var(--duration-base) var(--ease-premium),
+    border-color var(--duration-base) var(--ease-premium),
+    box-shadow var(--duration-base) var(--ease-premium);
+}
+
+.capability-card:hover,
+.capability-card-active {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.capability-index {
+  @apply font-mono text-xs text-slate-300 dark:text-slate-600;
+}
+
+.capability-role {
+  @apply mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-primary-600 dark:text-primary-300;
+}
+
+@keyframes flow-right {
+  0% {
+    left: -2px;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 3px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  .capability-flow-row {
+    gap: 1.5px;
+  }
+
+  .capability-link {
+    width: 18px;
+  }
 }
 
 .project-card {
