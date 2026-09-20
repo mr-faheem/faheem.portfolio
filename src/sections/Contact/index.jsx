@@ -2,13 +2,19 @@ import React, { useRef, useState } from "react";
 import SectionHeading from "../../components/common/SectionHeading.jsx";
 import Icon from "../../components/common/Icons.jsx";
 
+// Unchanged from the existing implementation — do not alter.
 const FORM_ENDPOINT = "https://formspree.io/f/xqaypyke";
+
+// Truthful availability, not a commercial-client claim.
+const availability = ["Full Stack Developer roles", "MERN / React / Node.js roles", "Project discussions"];
 
 export default function Contact() {
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ ok: null, msg: "" });
 
+  // Unchanged submit logic — same endpoint, same fields, same honeypot,
+  // same success/error handling as the original implementation.
   async function handleSubmit(e) {
     e.preventDefault();
     if (isSubmitting) return;
@@ -51,26 +57,53 @@ export default function Contact() {
         <div className="contact-grid" data-reveal>
           <aside className="contact-panel">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-300">Start a conversation</p>
-              <h3 className="mt-3 max-w-md text-2xl font-semibold leading-tight text-slate-950 dark:text-white sm:text-3xl">Open to developer opportunities and project conversations.</h3>
-              <p className="mt-4 max-w-md text-sm leading-7 text-slate-500 dark:text-slate-400">Email, WhatsApp or use the form. The current Formspree setup remains unchanged.</p>
+              <p className="console-header">
+                <span className="console-dot" />
+                Start a conversation
+              </p>
+              <h3 className="mt-4 max-w-md text-2xl font-semibold leading-tight text-slate-950 dark:text-white sm:text-3xl">
+                Open to developer opportunities and project conversations.
+              </h3>
+
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {availability.map((item) => (
+                  <li key={item} className="tech-chip">
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
 
             <div className="mt-8 space-y-3">
               <a className="contact-method" href="mailto:gourfaheem55@gmail.com">
-                <span><Icon name="mail" size={18} /></span>
-                <div><small>Email</small><strong>gourfaheem55@gmail.com</strong></div>
+                <span>
+                  <Icon name="mail" size={18} />
+                </span>
+                <div>
+                  <small>Email</small>
+                  <strong>gourfaheem55@gmail.com</strong>
+                </div>
                 <Icon name="arrowUpRight" size={16} className="ml-auto" />
               </a>
               <a className="contact-method" href="https://wa.me/918979391273" target="_blank" rel="noreferrer">
-                <span><Icon name="message" size={18} /></span>
-                <div><small>WhatsApp</small><strong>+91 89793 91273</strong></div>
+                <span>
+                  <Icon name="message" size={18} />
+                </span>
+                <div>
+                  <small>WhatsApp</small>
+                  <strong>+91 89793 91273</strong>
+                </div>
                 <Icon name="arrowUpRight" size={16} className="ml-auto" />
               </a>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="https://www.linkedin.com/in/mohd-faheem-b8782726a/" target="_blank" rel="noreferrer" className="btn btn-secondary">
+              <a
+                href="https://www.linkedin.com/in/mohd-faheem-b8782726a/"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-secondary"
+              >
                 <Icon name="linkedin" size={17} /> LinkedIn
               </a>
               <a href="https://github.com/mr-faheem" target="_blank" rel="noreferrer" className="btn btn-secondary">
@@ -79,10 +112,21 @@ export default function Contact() {
             </div>
           </aside>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="premium-card p-5 sm:p-7" aria-busy={isSubmitting}>
+          <form ref={formRef} onSubmit={handleSubmit} className="premium-card contact-form" aria-busy={isSubmitting}>
             <input type="text" name="_gotcha" className="hidden" tabIndex="-1" autoComplete="off" />
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex items-center justify-between gap-3">
+              <p className="console-header">
+                <span className="console-dot" />
+                Message Composer
+              </p>
+              <span className="availability-pill">
+                <span className="availability-dot" />
+                Open to opportunities
+              </span>
+            </div>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <label className="field-label">
                 <span>Name</span>
                 <input className="input" name="name" placeholder="Your name" required />
@@ -95,7 +139,13 @@ export default function Contact() {
 
             <label className="field-label mt-4 block">
               <span>Message</span>
-              <textarea className="textarea" rows="6" name="message" placeholder="Tell me a little about your project or opportunity..." required />
+              <textarea
+                className="textarea"
+                rows="6"
+                name="message"
+                placeholder="Tell me a little about your project or opportunity..."
+                required
+              />
             </label>
 
             <button type="submit" disabled={isSubmitting} className="btn btn-primary btn-lg mt-5 w-full sm:w-auto">
@@ -108,7 +158,10 @@ export default function Contact() {
             </button>
 
             {status.msg && (
-              <p className={`mt-4 text-sm ${status.ok ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`} aria-live="polite">
+              <p
+                className={`mt-4 text-sm ${status.ok ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}
+                aria-live="polite"
+              >
                 {status.msg}
               </p>
             )}

@@ -10,7 +10,8 @@ export default function Footer() {
             <span className="brand-symbol brand-symbol-small">F</span>
             Mohd Faheem
           </a>
-          <p className="mt-2 text-xs text-slate-400">© 2026 Mohd Faheem. Built with React.</p>
+          <p className="mt-2 text-xs text-slate-400">© 2026 Mohd Faheem.</p>
+          <p className="footer-tagline">Built with React + Vite · Deployed with GitHub Pages</p>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2">
