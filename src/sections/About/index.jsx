@@ -3,21 +3,22 @@ import SectionHeading from "../../components/common/SectionHeading.jsx";
 import Icon from "../../components/common/Icons.jsx";
 import { technicalLearning } from "../../data/learning.js";
 
-const focus = [
+// WHY/HOW I build — not a tech list (that's Skills' job).
+const approach = [
+  { key: "BUILD", icon: "code", text: "Responsive React interfaces" },
+  { key: "ENGINEER", icon: "server", text: "Node.js / Express APIs" },
+  { key: "DATA", icon: "database", text: "MongoDB-backed application flows" },
+  { key: "SHIP", icon: "git", text: "Deployment and Git/GitHub workflow" },
+];
+
+const education = [
   {
-    icon: "code",
-    title: "Frontend Engineering",
-    text: "Responsive interfaces with React, JavaScript, HTML and CSS.",
+    title: "Bachelor of Computer Applications (BCA)",
+    meta: "Maa Shakumbhari University · 2023 – 2026",
   },
   {
-    icon: "server",
-    title: "Backend & APIs",
-    text: "Practical APIs and server-side development with Node.js and Express.",
-  },
-  {
-    icon: "database",
-    title: "Data & Delivery",
-    text: "MongoDB-backed apps, Git/GitHub workflows and production-ready builds.",
+    title: "Senior Secondary (12th)",
+    meta: "Islamia Inter College",
   },
 ];
 
@@ -28,75 +29,79 @@ export default function About() {
         <SectionHeading
           eyebrow="ABOUT"
           title="More than just code."
-          subtitle="I focus on building web experiences that are clear, responsive, maintainable and pleasant to use."
+          subtitle="How I think about building software — not just the tools I use."
         />
 
         <div className="grid gap-6 lg:grid-cols-[1.15fr_.85fr] lg:gap-8">
-          <article className="premium-card p-6 sm:p-8" data-reveal>
+          {/* Developer profile / philosophy */}
+          <article className="premium-card spotlight-surface p-6 sm:p-8" data-reveal
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
+              e.currentTarget.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
+            }}
+          >
             <div className="flex items-start gap-4">
-              <span className="section-icon">
-                <Icon name="user" size={22} />
+              <span className="system-node-icon">
+                <Icon name="user" size={19} />
               </span>
               <div>
                 <p className="text-lg leading-8 text-slate-700 dark:text-slate-200">
-                  I&apos;m a Full Stack Developer focused on building fast, clean and accessible web applications. I enjoy crafting frontends with <strong className="text-slate-950 dark:text-white">React</strong> and shipping scalable backends with <strong className="text-slate-950 dark:text-white">Node.js + Express</strong>, using <strong className="text-slate-950 dark:text-white">MongoDB</strong> for data.
+                  I&apos;m a <strong className="text-slate-950 dark:text-white">Full Stack Developer</strong> who
+                  thinks in systems — how data moves from the database, through the API, into the interface someone
+                  actually uses. I like owning a feature end to end rather than working in just one layer.
                 </p>
                 <p className="mt-4 text-sm leading-7 text-slate-500 dark:text-slate-400">
-                  I care about performance, maintainable code and polished UX, while continuously strengthening my JavaScript, React, database and responsive-development skills through structured learning and hands-on projects.
+                  Right now I&apos;m deepening that end-to-end approach — strengthening my JavaScript fundamentals,
+                  React patterns, backend/API design and database modeling through structured learning and
+                  hands-on projects.
                 </p>
               </div>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {focus.map((item) => (
-                <div key={item.title} className="soft-panel p-4">
-                  <Icon name={item.icon} size={19} className="text-primary-500" />
-                  <h3 className="mt-3 text-sm font-semibold text-slate-950 dark:text-white">{item.title}</h3>
-                  <p className="mt-1.5 text-xs leading-6 text-slate-500 dark:text-slate-400">{item.text}</p>
+            <div className="approach-grid">
+              {approach.map((item) => (
+                <div key={item.key} className="approach-block">
+                  <div className="flex items-center gap-2">
+                    <Icon name={item.icon} size={16} className="text-primary-500" />
+                    <span className="approach-key">{item.key}</span>
+                  </div>
+                  <p className="approach-text">{item.text}</p>
                 </div>
               ))}
             </div>
           </article>
 
-          <div className="grid gap-6" data-reveal>
+          {/* Profile / Education console */}
+          <div className="grid gap-6" data-reveal style={{ "--delay": "120ms" }}>
             <article className="premium-card p-6">
-              <div className="flex items-center gap-3">
-                <span className="section-icon section-icon-small">
-                  <Icon name="graduation" size={19} />
-                </span>
-                <div>
-                  <h3 className="text-base font-semibold text-slate-950 dark:text-white">Education</h3>
-                  <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Academic foundation in computer applications</p>
-                </div>
-              </div>
+              <p className="console-header">
+                <span className="console-dot" />
+                Education
+              </p>
 
-              <div className="mt-5 space-y-4 border-l border-slate-200 pl-5 dark:border-white/10">
-                <div className="timeline-mini-item">
-                  <strong>Bachelor of Computer Applications (BCA)</strong>
-                  <span>Maa Shakumbhari University · Completed 2026 · 2023–2026</span>
-                </div>
-                <div className="timeline-mini-item">
-                  <strong>Senior Secondary (12th)</strong>
-                  <span>Islamia Inter College</span>
-                </div>
+              <div className="mt-5 flex flex-col gap-4">
+                {education.map((item) => (
+                  <div key={item.title} className="console-row">
+                    <strong>{item.title}</strong>
+                    <span>{item.meta}</span>
+                  </div>
+                ))}
               </div>
             </article>
 
             <article className="premium-card p-6">
-              <div className="flex items-center gap-3">
-                <span className="section-icon section-icon-small">
-                  <Icon name="certificate" size={19} />
-                </span>
-                <div>
-                  <h3 className="text-base font-semibold text-slate-950 dark:text-white">Certifications & Technical Learning</h3>
-                  <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Currently learning — credentials will be linked after completion</p>
-                </div>
-              </div>
+              <p className="console-header">
+                <span className="console-dot" />
+                Currently Improving
+              </p>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                 {technicalLearning.map((item) => (
                   <div key={`${item.title}-${item.provider}`} className="learning-mini-card">
-                    <span className="learning-mini-icon"><Icon name={item.icon} size={16} /></span>
+                    <span className="learning-mini-icon">
+                      <Icon name={item.icon} size={16} />
+                    </span>
                     <div className="min-w-0">
                       <strong>{item.title}</strong>
                       <span>{item.provider}</span>
