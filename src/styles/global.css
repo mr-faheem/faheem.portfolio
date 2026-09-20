@@ -656,25 +656,124 @@ img {
   }
 }
 
-.experience-timeline {
-  @apply relative space-y-7;
+/* ---------------------------------
+   Phase 6 — Experience: Engineering Journey
+---------------------------------- */
+
+.journey-timeline {
+  position: relative;
 }
 
-.experience-timeline::before {
+.journey-spine {
+  position: absolute;
+  left: 20px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(56, 189, 248, 0.5), rgba(139, 92, 246, 0.22) 55%, transparent);
+}
+
+.journey-spine::after {
   content: "";
-  @apply absolute bottom-8 left-5 top-8 w-px bg-gradient-to-b from-primary-400/60 via-slate-200 to-transparent dark:via-white/10;
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgb(56, 189, 248);
+  box-shadow: 0 0 10px 2px rgba(56, 189, 233, 0.55);
+  transform: translateX(-50%);
+  animation: journey-flow 5s var(--ease-premium) infinite;
 }
 
-.experience-row {
-  @apply relative grid grid-cols-[40px_1fr] gap-4 sm:grid-cols-[44px_1fr] sm:gap-6;
+@media (min-width: 640px) {
+  .journey-spine {
+    left: 22px;
+  }
 }
 
-.timeline-marker {
-  @apply relative z-10 grid h-10 w-10 place-items-center rounded-xl border border-primary-500/20 bg-[#f8fafc] text-primary-600 shadow-sm dark:bg-[#090d13] dark:text-primary-300;
+.journey-node {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 1rem;
 }
 
-.experience-card {
-  @apply p-5 sm:p-7;
+.journey-node + .journey-node {
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .journey-node {
+    grid-template-columns: 44px 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.journey-marker {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  height: 40px;
+  width: 40px;
+  place-items: center;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: var(--surface-glass-bg);
+  color: rgb(2, 132, 199);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.08);
+}
+
+.dark .journey-marker {
+  color: rgb(125, 211, 252);
+}
+
+@media (min-width: 640px) {
+  .journey-marker {
+    height: 44px;
+    width: 44px;
+  }
+}
+
+.journey-card {
+  padding: 1.25rem;
+  transition: transform var(--duration-base) var(--ease-premium),
+    border-color var(--duration-base) var(--ease-premium);
+}
+
+@media (min-width: 640px) {
+  .journey-card {
+    padding: 1.75rem;
+  }
+}
+
+.journey-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+@media (max-width: 1023px) {
+  .journey-card:hover {
+    transform: none;
+  }
+}
+
+@keyframes journey-flow {
+  0% {
+    top: -2px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 4px);
+    opacity: 0;
+  }
 }
 
 .timeline-type {
@@ -1084,18 +1183,6 @@ img {
 
 .learning-status {
   @apply ml-auto inline-flex shrink-0 items-center rounded-full border border-primary-500/15 bg-primary-500/10 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-primary-700 dark:text-primary-300;
-}
-
-.learning-status-complete {
-  @apply border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300;
-}
-
-.learning-card {
-  @apply flex items-center gap-3 p-4;
-}
-
-.learning-card-icon {
-  @apply grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-primary-500/15 bg-primary-500/10 text-primary-600 dark:text-primary-300;
 }
 
 @media (max-width: 420px) {
