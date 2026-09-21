@@ -1,17 +1,15 @@
 {
   "name": "faheem.portfolio",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Mohd Faheem",
   "license": "ISC",
-  "description": "",
+  "description": "Engineering-console style portfolio for Mohd Faheem, built with React, Vite and Tailwind CSS.",
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
@@ -22,5 +20,6 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "vite": "^7.1.7"
-  }
+  },
+  "private": true
 }

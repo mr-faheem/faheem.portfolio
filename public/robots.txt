@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mr-faheem.github.io/faheem.portfolio/sitemap.xml

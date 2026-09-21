@@ -1,28 +1,62 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <meta name="theme-color" content="#090d13" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="robots" content="index,follow" />
+
     <title>Mohd Faheem — Full Stack Developer</title>
-    <meta name="description" content="Portfolio of Mohd Faheem — Full Stack Developer building modern web apps with React, Node.js, Express and MongoDB." />
+
+    <meta
+      name="description"
+      content="Portfolio of Mohd Faheem — Full Stack Developer building modern web apps with React, Node.js, Express and MongoDB."
+    />
+
+    <link
+      rel="canonical"
+      href="https://mr-faheem.github.io/faheem.portfolio/"
+    />
+
+    <meta
+      property="og:title"
+      content="Mohd Faheem — Full Stack Developer"
+    />
+
+    <meta
+      property="og:description"
+      content="Full-stack developer portfolio featuring React, Node.js, Express, MongoDB and the Nexora e-commerce platform."
+    />
+
+    <meta property="og:type" content="website" />
+
+    <meta
+      property="og:url"
+      content="https://mr-faheem.github.io/faheem.portfolio/"
+    />
+
+    <meta name="twitter:card" content="summary" />
+
     <link rel="icon" href="./favicon.svg" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <script>
-      (function () {
-        try {
-          const saved = localStorage.getItem('theme');
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const wantDark = saved ? saved === 'dark' : prefersDark;
-          document.documentElement.classList.toggle('dark', wantDark);
-        } catch {}
-      })();
-    </script>
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
   <body>
     <div id="root"></div>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

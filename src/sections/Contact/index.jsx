@@ -6,17 +6,20 @@ import Icon from "../../components/common/Icons.jsx";
 const FORM_ENDPOINT = "https://formspree.io/f/xqaypyke";
 
 // Truthful availability, not a commercial-client claim.
-const availability = ["Full Stack Developer roles", "MERN / React / Node.js roles", "Project discussions"];
+const availability = [
+  "Full Stack Developer roles",
+  "MERN / React / Node.js roles",
+  "Project discussions",
+];
 
 export default function Contact() {
   const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ ok: null, msg: "" });
 
-  // Unchanged submit logic — same endpoint, same fields, same honeypot,
-  // same success/error handling as the original implementation.
   async function handleSubmit(e) {
     e.preventDefault();
+
     if (isSubmitting) return;
 
     setIsSubmitting(true);
@@ -24,29 +27,48 @@ export default function Contact() {
 
     try {
       const fd = new FormData(formRef.current);
-      fd.append("_subject", `New message from ${fd.get("name")} — Portfolio`);
+
+      fd.append(
+        "_subject",
+        `New message from ${fd.get("name")} — Portfolio`
+      );
 
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
         body: fd,
-        headers: { Accept: "application/json" },
+        headers: {
+          Accept: "application/json",
+        },
       });
 
       if (res.ok) {
-        setStatus({ ok: true, msg: "Thanks! Your message has been sent ✅" });
+        setStatus({
+          ok: true,
+          msg: "Thanks! Your message has been sent ✅",
+        });
+
         formRef.current.reset();
       } else {
-        setStatus({ ok: false, msg: "Oops! Something went wrong. Please try again." });
+        setStatus({
+          ok: false,
+          msg: "Oops! Something went wrong. Please try again.",
+        });
       }
     } catch {
-      setStatus({ ok: false, msg: "Network error. Check your internet and try again." });
+      setStatus({
+        ok: false,
+        msg: "Network error. Check your internet and try again.",
+      });
     } finally {
       setIsSubmitting(false);
     }
   }
 
   return (
-    <section id="contact" className="section-shell section-tint">
+    <section
+      id="contact"
+      className="section-shell section-tint"
+    >
       <div className="container">
         <SectionHeading
           eyebrow="CONTACT"
@@ -61,13 +83,18 @@ export default function Contact() {
                 <span className="console-dot" />
                 Start a conversation
               </p>
+
               <h3 className="mt-4 max-w-md text-2xl font-semibold leading-tight text-slate-950 dark:text-white sm:text-3xl">
-                Open to developer opportunities and project conversations.
+                Open to developer opportunities and project
+                conversations.
               </h3>
 
               <ul className="mt-4 flex flex-wrap gap-2">
                 {availability.map((item) => (
-                  <li key={item} className="tech-chip">
+                  <li
+                    key={item}
+                    className="tech-chip"
+                  >
                     {item}
                   </li>
                 ))}
@@ -75,25 +102,56 @@ export default function Contact() {
             </div>
 
             <div className="mt-8 space-y-3">
-              <a className="contact-method" href="mailto:gourfaheem55@gmail.com">
+              <a
+                className="contact-method"
+                href="mailto:gourfaheem55@gmail.com"
+              >
                 <span>
-                  <Icon name="mail" size={18} />
+                  <Icon
+                    name="mail"
+                    size={18}
+                  />
                 </span>
+
                 <div>
                   <small>Email</small>
-                  <strong>gourfaheem55@gmail.com</strong>
+                  <strong>
+                    gourfaheem55@gmail.com
+                  </strong>
                 </div>
-                <Icon name="arrowUpRight" size={16} className="ml-auto" />
+
+                <Icon
+                  name="arrowUpRight"
+                  size={16}
+                  className="ml-auto"
+                />
               </a>
-              <a className="contact-method" href="https://wa.me/918979391273" target="_blank" rel="noreferrer">
+
+              <a
+                className="contact-method"
+                href="https://wa.me/918979391273"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <span>
-                  <Icon name="message" size={18} />
+                  <Icon
+                    name="message"
+                    size={18}
+                  />
                 </span>
+
                 <div>
                   <small>WhatsApp</small>
-                  <strong>+91 89793 91273</strong>
+                  <strong>
+                    +91 89793 91273
+                  </strong>
                 </div>
-                <Icon name="arrowUpRight" size={16} className="ml-auto" />
+
+                <Icon
+                  name="arrowUpRight"
+                  size={16}
+                  className="ml-auto"
+                />
               </a>
             </div>
 
@@ -104,22 +162,48 @@ export default function Contact() {
                 rel="noreferrer"
                 className="btn btn-secondary"
               >
-                <Icon name="linkedin" size={17} /> LinkedIn
+                <Icon
+                  name="linkedin"
+                  size={17}
+                />
+                LinkedIn
               </a>
-              <a href="https://github.com/mr-faheem" target="_blank" rel="noreferrer" className="btn btn-secondary">
-                <Icon name="github" size={17} /> GitHub
+
+              <a
+                href="https://github.com/mr-faheem"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-secondary"
+              >
+                <Icon
+                  name="github"
+                  size={17}
+                />
+                GitHub
               </a>
             </div>
           </aside>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="premium-card contact-form" aria-busy={isSubmitting}>
-            <input type="text" name="_gotcha" className="hidden" tabIndex="-1" autoComplete="off" />
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="premium-card contact-form"
+            aria-busy={isSubmitting}
+          >
+            <input
+              type="text"
+              name="_gotcha"
+              className="hidden"
+              tabIndex="-1"
+              autoComplete="off"
+            />
 
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="console-header">
                 <span className="console-dot" />
                 Message Composer
               </p>
+
               <span className="availability-pill">
                 <span className="availability-dot" />
                 Open to opportunities
@@ -129,16 +213,33 @@ export default function Contact() {
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <label className="field-label">
                 <span>Name</span>
-                <input className="input" name="name" placeholder="Your name" required />
+
+                <input
+                  className="input"
+                  name="name"
+                  autoComplete="name"
+                  placeholder="Your name"
+                  required
+                />
               </label>
+
               <label className="field-label">
                 <span>Email</span>
-                <input className="input" type="email" name="email" placeholder="you@example.com" required />
+
+                <input
+                  className="input"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  required
+                />
               </label>
             </div>
 
             <label className="field-label mt-4 block">
               <span>Message</span>
+
               <textarea
                 className="textarea"
                 rows="6"
@@ -148,18 +249,32 @@ export default function Contact() {
               />
             </label>
 
-            <button type="submit" disabled={isSubmitting} className="btn btn-primary btn-lg mt-5 w-full sm:w-auto">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="btn btn-primary btn-lg mt-5 w-full sm:w-auto"
+            >
               {isSubmitting ? (
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
               ) : (
-                <Icon name="send" size={17} />
+                <Icon
+                  name="send"
+                  size={17}
+                />
               )}
-              {isSubmitting ? "Sending…" : "Send Message"}
+
+              {isSubmitting
+                ? "Sending…"
+                : "Send Message"}
             </button>
 
             {status.msg && (
               <p
-                className={`mt-4 text-sm ${status.ok ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}
+                className={`mt-4 text-sm ${
+                  status.ok
+                    ? "text-emerald-600 dark:text-emerald-400"
+                    : "text-rose-600 dark:text-rose-400"
+                }`}
                 aria-live="polite"
               >
                 {status.msg}

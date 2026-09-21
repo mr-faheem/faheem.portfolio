@@ -1,4 +1,4 @@
-import nexoraPreview from "../assets/images/projects/nexora-home.png";
+import nexoraPreview from "../assets/images/projects/nexora-home.webp";
 
 // Add future projects by importing an image above and appending one
 // object below — the Projects section renders straight from this array,
@@ -21,6 +21,7 @@ import nexoraPreview from "../assets/images/projects/nexora-home.png";
 //     Only one featured project is shown right now. A secondary layout for
 //     non-featured projects doesn't exist yet — see Projects/index.jsx.
 // }
+
 export const projects = [
   {
     id: "nexora",
@@ -29,16 +30,46 @@ export const projects = [
     description:
       "Nexora is a full-stack e-commerce platform covering the complete commerce flow — product discovery with search and filtering, authentication, cart and wishlist, checkout with real Razorpay payments, order management, and a role-protected admin system for products, users, coupons and customer messages.",
     image: nexoraPreview,
-    imageAlt: "Nexora e-commerce storefront home page, showing the product hero and navigation",
+    imageAlt:
+      "Nexora e-commerce storefront home page, showing the product hero and navigation",
     liveUrl: "https://nexora-ecommerce-psi.vercel.app/",
     githubUrl: "https://github.com/mr-faheem/nexora-ecommerce",
-    stack: ["React", "Node.js", "Express", "MongoDB", "JWT", "Razorpay", "Cloudinary", "Vercel"],
+    stack: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "JWT",
+      "Razorpay",
+      "Cloudinary",
+      "Vercel",
+    ],
     highlights: [
-      { icon: "user", label: "Auth", detail: "JWT + role-based access" },
-      { icon: "check", label: "Payments", detail: "Razorpay + signature verification" },
-      { icon: "route", label: "Commerce", detail: "Cart, wishlist, checkout & orders" },
-      { icon: "briefcase", label: "Admin", detail: "Products, users, orders & coupons" },
-      { icon: "database", label: "Data & Media", detail: "MongoDB/Mongoose + Cloudinary" },
+      {
+        icon: "user",
+        label: "Auth",
+        detail: "JWT + role-based access",
+      },
+      {
+        icon: "check",
+        label: "Payments",
+        detail: "Razorpay + signature verification",
+      },
+      {
+        icon: "route",
+        label: "Commerce",
+        detail: "Cart, wishlist, checkout & orders",
+      },
+      {
+        icon: "briefcase",
+        label: "Admin",
+        detail: "Products, users, orders & coupons",
+      },
+      {
+        icon: "database",
+        label: "Data & Media",
+        detail: "MongoDB/Mongoose + Cloudinary",
+      },
     ],
     featured: true,
   },

@@ -12,7 +12,11 @@ function toDisplayUrl(url, fallback) {
 }
 
 function FlagshipProject({ project, index }) {
-  const { ref: mediaRef, onPointerMove, onPointerLeave } = usePointerTilt({ maxTilt: 4 });
+  const {
+    ref: mediaRef,
+    onPointerMove,
+    onPointerLeave,
+  } = usePointerTilt({ maxTilt: 4 });
 
   return (
     <article data-reveal className="flagship-card">
@@ -31,22 +35,45 @@ function FlagshipProject({ project, index }) {
               <span className="h-1.5 w-1.5 rounded-full bg-rose-400/80" />
               <span className="h-1.5 w-1.5 rounded-full bg-amber-400/80" />
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
-              <span className="flagship-browser-url">{toDisplayUrl(project.liveUrl, project.name)}</span>
+
+              <span className="flagship-browser-url">
+                {toDisplayUrl(project.liveUrl, project.name)}
+              </span>
             </div>
+
             <div className="flagship-browser-viewport">
-              <img src={project.image} alt={project.imageAlt} className="h-full w-full object-cover object-top" />
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+                width="1918"
+                height="829"
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover object-top"
+              />
             </div>
           </div>
         </div>
 
         <div className="flagship-content">
           <p className="flagship-eyebrow">
-            <span className="capability-index">0{index + 1}</span> Flagship Project
+            <span className="capability-index">
+              0{index + 1}
+            </span>{" "}
+            Flagship Project
           </p>
 
-          <h3 className="flagship-title">{project.name}</h3>
-          <p className="flagship-subtitle">{project.subtitle}</p>
-          <p className="flagship-desc">{project.description}</p>
+          <h3 className="flagship-title">
+            {project.name}
+          </h3>
+
+          <p className="flagship-subtitle">
+            {project.subtitle}
+          </p>
+
+          <p className="flagship-desc">
+            {project.description}
+          </p>
 
           <ul className="mt-5 flex flex-wrap gap-2">
             {project.stack.map((tech) => (
@@ -62,37 +89,55 @@ function FlagshipProject({ project, index }) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-primary"
+                className="btn btn-primary w-full sm:w-auto"
                 aria-label={`Open ${project.name} live demo in a new tab`}
               >
-                <Icon name="external" size={16} /> Live Demo
+                <Icon name="external" size={16} />
+                Live Demo
               </a>
             )}
+
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-secondary"
+                className="btn btn-secondary w-full sm:w-auto"
                 aria-label={`Open ${project.name} GitHub repository in a new tab`}
               >
-                <Icon name="github" size={16} /> GitHub Repository
+                <Icon name="github" size={16} />
+                GitHub Repository
               </a>
             )}
           </div>
         </div>
       </div>
 
-      {/* Engineering highlights */}
       <div className="flagship-highlights">
         {project.highlights.map((h, i) => (
-          <div key={h.label} data-reveal style={{ "--delay": `${i * 60}ms` }} className="highlight-card">
+          <div
+            key={h.label}
+            data-reveal
+            style={{
+              "--delay": `${i * 60}ms`,
+            }}
+            className="highlight-card"
+          >
             <span className="system-node-icon">
-              <Icon name={h.icon} size={17} />
+              <Icon
+                name={h.icon}
+                size={17}
+              />
             </span>
+
             <div className="min-w-0">
-              <p className="highlight-label">{h.label}</p>
-              <p className="highlight-detail">{h.detail}</p>
+              <p className="highlight-label">
+                {h.label}
+              </p>
+
+              <p className="highlight-detail">
+                {h.detail}
+              </p>
             </div>
           </div>
         ))}
@@ -102,10 +147,15 @@ function FlagshipProject({ project, index }) {
 }
 
 export default function Projects() {
-  const featuredProjects = projects.filter((p) => p.featured);
+  const featuredProjects = projects.filter(
+    (p) => p.featured
+  );
 
   return (
-    <section id="projects" className="section-shell section-tint">
+    <section
+      id="projects"
+      className="section-shell section-tint"
+    >
       <div className="container">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
@@ -113,6 +163,7 @@ export default function Projects() {
             title="Selected engineering work."
             subtitle="One flagship build, shown in full — a real full-stack commerce system, not a tutorial clone."
           />
+
           <a
             href="https://github.com/mr-faheem"
             target="_blank"
@@ -121,13 +172,22 @@ export default function Projects() {
           >
             <Icon name="github" size={17} />
             GitHub Profile
-            <Icon name="arrowUpRight" size={15} />
+            <Icon
+              name="arrowUpRight"
+              size={15}
+            />
           </a>
         </div>
 
-        {featuredProjects.map((project, index) => (
-          <FlagshipProject key={project.id} project={project} index={index} />
-        ))}
+        {featuredProjects.map(
+          (project, index) => (
+            <FlagshipProject
+              key={project.id}
+              project={project}
+              index={index}
+            />
+          )
+        )}
 
         {/*
           Non-featured projects (project.featured === false) would render

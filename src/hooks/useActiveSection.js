@@ -1,44 +1,72 @@
 import { useEffect, useState } from "react";
 
-export default function useActiveSection(
-  ids,
-  // header ki height approx 64px, niche 40% margin rakho
-  rootMargin = "-64px 0px -40% 0px"
-) {
+export default function useActiveSection(ids) {
   const [active, setActive] = useState(ids[0] ?? null);
 
   useEffect(() => {
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean);
-    if (!sections.length) return;
 
-    // Center-of-viewport based fallback (most reliable)
+    if (!sections.length) return undefined;
+
+    let frame = 0;
+
     const updateByCenter = () => {
-      const y = window.innerHeight / 2; // viewport center
-      let current = ids[0];
-      for (const sec of sections) {
-        const r = sec.getBoundingClientRect();
-        if (r.top <= y && r.bottom >= y) {
-          current = sec.id;
+      frame = 0;
+
+      const centerY = window.innerHeight / 2;
+      let current = sections[0].id;
+      let nearestDistance = Number.POSITIVE_INFINITY;
+
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+
+        if (rect.top <= centerY && rect.bottom >= centerY) {
+          current = section.id;
+          nearestDistance = 0;
           break;
         }
+
+        const distance = Math.min(
+          Math.abs(rect.top - centerY),
+          Math.abs(rect.bottom - centerY)
+        );
+
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          current = section.id;
+        }
       }
-      setActive(current);
+
+      setActive((previous) =>
+        previous === current ? previous : current
+      );
     };
 
-    // Run once + on scroll/resize
+    const scheduleUpdate = () => {
+      if (!frame) {
+        frame = window.requestAnimationFrame(updateByCenter);
+      }
+    };
+
     updateByCenter();
-    const onScroll = () => updateByCenter();
-    const onResize = () => updateByCenter();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
+
+    window.addEventListener("scroll", scheduleUpdate, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", scheduleUpdate);
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
     };
-  }, [ids, rootMargin]);
+  }, [ids]);
 
   return active;
 }
